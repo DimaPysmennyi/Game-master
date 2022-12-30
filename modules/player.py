@@ -14,9 +14,10 @@ class Player(object.Object):
         self.MOVE_LEFT = False
         self.MOVE_UP = False
         self.MOVE_DOWN = False
-        self.GRAVITY = True
-        self.MAX_JUMP = 200
-    
+        self.GRAVITY = False
+        self.JUMP = False
+        self.MAX_JUMP = 100
+        self.SPEED_JUMP = 5
 
     def move(self, area):
 
@@ -42,31 +43,37 @@ class Player(object.Object):
                 self.RECT.x -= 5
                 self.DIRECTION = "L"
 
-        if event[pygame.K_w]:
-            self.col_down(area)
+        if event[pygame.K_w] and self.JUMP == False and self.GRAVITY == False:
+            self.JUMP = True
+        if self.JUMP == True:
             self.col_up(area)
-            if self.MOVE_UP == True:
-                pass
-                # павсет иди спи
-                # властелин чего 
-                # или ничего
-                # чего
-                # или ничего
-                # дверь мне сделал 
-                # чел кринж
-                
+            self.RECT.y -= self.SPEED_JUMP
+            self.Y -= self.SPEED_JUMP
+            self.MAX_JUMP -= self.SPEED_JUMP
+            # self.GRAVITY = False
+            if self.MAX_JUMP == 0:
+                self.JUMP = False
+                self.MAX_JUMP = 100
+                self.GRAVITY = True
+            
 
-                # self.GRAVITY = False
+            # if self.MOVE_UP == True:
                 # self.Y -= 2
                 # self.RECT.y -= 2
-                # self.MAX_JUMP -= 1
-                # self.MOVE_DOWN = False
+                # self.MAX_JUMP -= 2  
+                # self.JUMP = True
+                # print(self.MAX_JUMP)
                 # if self.MAX_JUMP == 0:
-                    # self.MOVE_DOWN = True
                     # self.MAX_JUMP = 200
             # else:
-                # self.MOVE_DOWN = True
+                # self.MAX_JUMP = 200
             # 
+        # elif not event[pygame.K_w]:
+            # self.JUMP = False
+            # print(self.MOVE_DOWN, self.MOVE_UP)
+
+            
+            
 
             
 
@@ -81,6 +88,7 @@ class Player(object.Object):
     #         self.direction()
     #         self.COUNT_IMG += 1
     #     self.COUNT_IMG = 1
+    # https://t.me/c/1846892575/1152
         
     # def direction(self):
     #     if self.DIRECTION == "R":
