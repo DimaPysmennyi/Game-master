@@ -1,5 +1,4 @@
 import modules.settings as settings
-import modules.area as area
 import modules.object as object
 import pygame
 
@@ -9,14 +8,12 @@ class Player(object.Object):
         super().__init__(**kwargs)
         self.HEALTH = 10
         self.MOVE_DOWN = False
-        self.DIRECTION = "R"
         self.MOVE_RIGHT = False
         self.MOVE_LEFT = False
-        self.MOVE_UP = False
         self.MOVE_DOWN = False
         self.GRAVITY = False
         self.JUMP = False
-        self.MAX_JUMP = 100
+        self.MAX_JUMP = 200
         self.SPEED_JUMP = 5
 
     def move(self, area):
@@ -45,39 +42,45 @@ class Player(object.Object):
 
         if event[pygame.K_w] and self.JUMP == False and self.GRAVITY == False:
             self.JUMP = True
+
         if self.JUMP == True:
             self.col_up(area)
             self.RECT.y -= self.SPEED_JUMP
             self.Y -= self.SPEED_JUMP
             self.MAX_JUMP -= self.SPEED_JUMP
-            # self.GRAVITY = False
+            self.GRAVITY = False
             if self.MAX_JUMP == 0:
                 self.JUMP = False
-                self.MAX_JUMP = 100
+                self.MAX_JUMP = 200
                 self.GRAVITY = True
-            
-
-            # if self.MOVE_UP == True:
-                # self.Y -= 2
-                # self.RECT.y -= 2
-                # self.MAX_JUMP -= 2  
-                # self.JUMP = True
-                # print(self.MAX_JUMP)
-                # if self.MAX_JUMP == 0:
-                    # self.MAX_JUMP = 200
-            # else:
-                # self.MAX_JUMP = 200
-            # 
-        # elif not event[pygame.K_w]:
-            # self.JUMP = False
-            # print(self.MOVE_DOWN, self.MOVE_UP)
-
-            
-            
-
+        
+        if self.MOVE_DOWN == True:
+            self.GRAVITY = True
             
 
 
+    def exit(self, area):
+        for door in area.list_door_right:
+            if self.RECT.x >= door.RECT.x and self.RECT.y >= door.RECT.y:
+                area.list_block_area.clear()
+                area.list_block_rect.clear()
+                area.list_door_right.clear()
+                area.list_door_right_rect.clear()
+                area.list_door_left.clear()
+                area.list_door_left_rect.clear()
+                self.CURRENT_LEVEL += 1
+                area.create_area()
+
+        for door in area.list_door_left:
+            if self.RECT.x <= door.RECT.x and self.RECT.y >= door.RECT.y:
+                area.list_block_area.clear()
+                area.list_block_rect.clear()
+                area.list_door_right.clear()
+                area.list_door_right_rect.clear()
+                area.list_door_left.clear()
+                area.list_door_left_rect.clear()
+                self.CURRENT_LEVEL -= 1
+                area.create_area()
 
     # # def animation(self, folder=None, count_while=None, first_img=None, last_img=None):
     #     self.SPEED_ANIMATION += 1
@@ -88,13 +91,12 @@ class Player(object.Object):
     #         self.direction()
     #         self.COUNT_IMG += 1
     #     self.COUNT_IMG = 1
-    # https://t.me/c/1846892575/1152
         
-    # def direction(self):
-    #     if self.DIRECTION == "R":
-    #         self.load_image()
-    #     if self.DIRECTION == "L":
-    #         self.load_image(direction=True)
+    def direction(self):
+        if self.DIRECTION == "R":
+            self.load_image()
+        if self.DIRECTION == "L":
+            self.load_image(direction=True)
     
     def damage(self, damage):
         self.HEALTH -= damage
@@ -128,7 +130,7 @@ class Player(object.Object):
     
 hero = Player(
     width = 50,
-    height = 70,
+    height = 55,
     x = 0,
     y = 0,
     name_img = "images\\Player\\1.png",

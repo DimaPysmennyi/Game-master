@@ -6,7 +6,9 @@ import modules.settings as settings
 class Object(settings.Settings):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.DIRECTION = "R"
         self.GRAVITY = True
+        self.CURRENT_LEVEL = 0
 
     def col_right(self, list_walls):
        for wall in list_walls:
@@ -51,6 +53,7 @@ class Object(settings.Settings):
                 if self.Y <= wall.Y + wall.HEIGHT + self.SPEED_JUMP and self.Y >= wall.Y:
                     self.JUMP = False
                     self.MOVE_DOWN = True
+
                     break
 
     def gravity(self, area):
