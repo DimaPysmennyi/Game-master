@@ -1,14 +1,16 @@
 import pygame
-import modules.area as area 
 import modules.settings as settings
+
 
 
 class Object(settings.Settings):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.DIRECTION = "R"
+        self.GRAVITY_SPEED = 2
         self.GRAVITY = True
         self.CURRENT_LEVEL = 0
+        self.CURRENT_MAP = 0
 
     def col_right(self, list_walls):
        for wall in list_walls:
@@ -38,7 +40,7 @@ class Object(settings.Settings):
     def col_down(self, list_walls):
         for wall in list_walls:
             if self.X <= wall.X + wall.WIDTH and self.X + self.WIDTH >= wall.X:
-                if self.Y + self.HEIGHT >= wall.Y - 1 and self.Y <= wall.Y:
+                if self.Y + self.HEIGHT >= wall.Y - self.GRAVITY_SPEED and self.Y <= wall.Y:
                     self.MOVE_DOWN = False
                     break
                 
@@ -59,8 +61,8 @@ class Object(settings.Settings):
     def gravity(self, area):
         self.col_down(area)
         if self.MOVE_DOWN == True and self.JUMP == False:
-            self.Y += 1
-            self.RECT.y += 1
+            self.Y += self.GRAVITY_SPEED
+            self.RECT.y += self.GRAVITY_SPEED
             # self.GRAVITY = True
         else:
             self.GRAVITY = False

@@ -1,6 +1,8 @@
 import pygame
 import os
 
+scene = "menu"
+
 def find_path():
     path_image = os.path.abspath(__file__ + "/..")
     path_image = path_image.split("\\") 
@@ -40,4 +42,13 @@ class Settings:
     
     def draw(self, win):
         pygame.draw.rect(win, self.COLOR, self.RECT)
+
+button = Settings(
+    width = 420,
+    height = 200,
+    x = 210,
+    y = 300,
+    name_img="images\\button_start.png",
+    color = (0, 0, 0)
+)
 

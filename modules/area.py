@@ -1,14 +1,14 @@
 
-from modules.settings import Settings
+import modules.settings as settings
 from modules.player import hero
 from modules.levels import *
+from modules.enemy import turret, bullet
 
-class Area(Settings):
+class Area(settings.Settings):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-map = [level1, level2, level3, level4, level5, level6, level7]
-
+map = [level1, level2, level3]
 # пака ярик
 list_block_area = []
 list_block_rect = []
@@ -19,6 +19,9 @@ list_door_right = []
 list_door_right_rect = []
 list_door_left = []
 list_door_left_rect = []
+
+list_turrets = []
+list_turrets_rect = []
 
 
 
@@ -71,8 +74,16 @@ def create_area():
                 list_door_left.append(door_left)
                 list_door_right_rect.append(door_left.RECT)
 
+            if column == "t":
+                turret.RECT.x = x
+                turret.RECT.y = y
+                turret.X = x
+                turret.Y = y
+                list_turrets.append(turret)
+                list_turrets_rect.append(turret.RECT)
+
             x += block_width
         y += block_height
         x = 0
-    
+
 create_area()

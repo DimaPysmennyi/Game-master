@@ -1,5 +1,6 @@
 import modules.settings as settings
 import modules.object as object
+
 import pygame
 
 
@@ -68,6 +69,9 @@ class Player(object.Object):
                 area.list_door_right_rect.clear()
                 area.list_door_left.clear()
                 area.list_door_left_rect.clear()
+                area.list_turrets.clear()
+                area.list_turrets_rect.clear()
+                self.CURRENT_MAP = 0
                 self.CURRENT_LEVEL += 1
                 area.create_area()
 
@@ -79,6 +83,9 @@ class Player(object.Object):
                 area.list_door_right_rect.clear()
                 area.list_door_left.clear()
                 area.list_door_left_rect.clear()
+                area.list_turrets.clear()
+                area.list_turrets_rect.clear()
+                self.CURRENT_MAP = 1
                 self.CURRENT_LEVEL -= 1
                 area.create_area()
 
@@ -129,7 +136,7 @@ class Player(object.Object):
         win.blit(text, (200, 200))
     
 hero = Player(
-    width = 50,
+    width = 45,
     height = 55,
     x = 0,
     y = 0,
