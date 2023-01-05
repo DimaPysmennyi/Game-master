@@ -9,6 +9,7 @@ class Object(settings.Settings):
         self.DIRECTION = "R"
         self.GRAVITY_SPEED = 2
         self.GRAVITY = True
+        self.SPEED_ANIMATION = 0
         self.CURRENT_LEVEL = 0
         self.CURRENT_MAP = 0
 

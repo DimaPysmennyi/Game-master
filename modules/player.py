@@ -1,5 +1,7 @@
 import modules.settings as settings
 import modules.object as object
+import modules.npc as npc
+# import modules.enemy as enemy
 
 import pygame
 
@@ -7,13 +9,14 @@ import pygame
 class Player(object.Object):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.HEALTH = 10
+        self.HEALTH = 3
         self.MOVE_DOWN = False
         self.MOVE_RIGHT = False
         self.MOVE_LEFT = False
         self.MOVE_DOWN = False
         self.GRAVITY = False
         self.JUMP = False
+        self.SHOW_DIALOG = False
         self.MAX_JUMP = 200
         self.SPEED_JUMP = 5
 
@@ -32,17 +35,31 @@ class Player(object.Object):
                 self.X += 5
                 self.RECT.x += 5
                 self.DIRECTION = "R"
-                # self.animation(folder="Player", count_while=4, first_img=1, last_img=5)
+                self.animation(folder="Player", count_while=5, first_img=2, last_img=5)
 
         if event[pygame.K_a]:
             self.col_left(area)
+
             if self.MOVE_LEFT == True:
                 self.X -= 5
                 self.RECT.x -= 5
                 self.DIRECTION = "L"
+                self.animation(folder="Player", count_while=5, first_img=5, last_img=2)
 
         if event[pygame.K_w] and self.JUMP == False and self.GRAVITY == False:
             self.JUMP = True
+
+        if event[pygame.K_e]:
+            if self.SHOW_DIALOG == False and self.RECT.x + 50 >= npc.prisoner.RECT.x:
+                self.SHOW_DIALOG = True
+            if self.SHOW_DIALOG == False and self.RECT.x - 50 <= npc.prisoner.RECT.x:
+                self.SHOW_DIALOG = True
+            
+        if self.SHOW_DIALOG == True and self.RECT.x - 50 > npc.prisoner.RECT.x:
+            self.SHOW_DIALOG = False
+        
+        if self.SHOW_DIALOG == True and self.RECT.x + 50 < npc.prisoner.RECT.x:
+            self.SHOW_DIALOG = False
 
         if self.JUMP == True:
             self.col_up(area)
@@ -57,47 +74,49 @@ class Player(object.Object):
         
         if self.MOVE_DOWN == True:
             self.GRAVITY = True
-            
+
+
 
 
     def exit(self, area):
         for door in area.list_door_right:
             if self.RECT.x >= door.RECT.x and self.RECT.y >= door.RECT.y:
                 area.list_block_area.clear()
-                area.list_block_rect.clear()
+                # area.list_block_rect.clear()
                 area.list_door_right.clear()
-                area.list_door_right_rect.clear()
+                # area.list_door_right_rect.clear()
                 area.list_door_left.clear()
-                area.list_door_left_rect.clear()
+                # area.list_door_left_rect.clear()
                 area.list_turrets.clear()
-                area.list_turrets_rect.clear()
-                self.CURRENT_MAP = 0
+                # area.list_turrets_rect.clear()
+                area.list_bullet.clear()
+                area.list_npc.clear()
                 self.CURRENT_LEVEL += 1
                 area.create_area()
 
         for door in area.list_door_left:
             if self.RECT.x <= door.RECT.x and self.RECT.y >= door.RECT.y:
                 area.list_block_area.clear()
-                area.list_block_rect.clear()
                 area.list_door_right.clear()
-                area.list_door_right_rect.clear()
                 area.list_door_left.clear()
-                area.list_door_left_rect.clear()
+                # area.list_door_left_rect.clear()
                 area.list_turrets.clear()
-                area.list_turrets_rect.clear()
-                self.CURRENT_MAP = 1
+                # area.list_turrets_rect.clear()
+                area.list_bullet.clear()
+                area.list_npc.clear()
+                
                 self.CURRENT_LEVEL -= 1
                 area.create_area()
 
-    # # def animation(self, folder=None, count_while=None, first_img=None, last_img=None):
-    #     self.SPEED_ANIMATION += 1
-    #     if self.SPEED_ANIMATION % count_while == 0:
-    #         if self.COUNT_IMG == last_img:
-    #             self.COUNT_IMG = first_img
-    #         self.NAME_IMG = f"images\\{folder}\\{self.COUNT_IMG}.png"
-    #         self.direction()
-    #         self.COUNT_IMG += 1
-    #     self.COUNT_IMG = 1
+    def animation(self, folder=None, count_while=None, first_img=None, last_img=None):
+        self.SPEED_ANIMATION += 1
+        if self.SPEED_ANIMATION % count_while == 0:
+            if self.COUNT_IMG == last_img:
+                self.COUNT_IMG = first_img
+            self.NAME_IMG = f"images\\{folder}\\{self.COUNT_IMG}.png"
+            self.direction()
+            self.COUNT_IMG += 1
+        self.COUNT_IMG = 1
         
     def direction(self):
         if self.DIRECTION == "R":
@@ -116,15 +135,17 @@ class Player(object.Object):
 
     def health_font(self, win):
         self.load_image()
-        font = pygame.font.SysFont('arial', 60)
-        text = font.render(str(self.HEALTH), 1, (255,69,0), None)
+        bg_black = pygame.Rect(0, 0, 110, 65)
+        pygame.draw.rect(win, "black", bg_black)
+        font = pygame.font.SysFont('fonts\Digital_Thin.ttf', 100)
+        text = font.render(str(self.HEALTH), 1, (225,22,25), None)
         win.blit(text, (65, 0))
         heart_sprite = settings.Settings(
             width = 60,
             height = 60, 
             x = 0,
             y = 0,
-            name_img="images\\health.png",
+            name_img="images\Player\health.png",
             color = "yellow"
         )    
         heart_sprite.blit_sprite(win)
@@ -134,6 +155,7 @@ class Player(object.Object):
         font = pygame.font.SysFont('arial', 40)
         text = font.render('САЛАМ МАЛЕКУ', 1, (255, 255, 255), None)
         win.blit(text, (200, 200))
+    
     
 hero = Player(
     width = 45,

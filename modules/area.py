@@ -2,7 +2,8 @@
 import modules.settings as settings
 from modules.player import hero
 from modules.levels import *
-from modules.enemy import turret, bullet
+from modules.enemy import turret
+from modules.npc import prisoner
 
 class Area(settings.Settings):
     def __init__(self, **kwargs):
@@ -11,17 +12,18 @@ class Area(settings.Settings):
 map = [level1, level2, level3]
 # пака ярик
 list_block_area = []
-list_block_rect = []
 block_width = 60
 block_height = 60
 
 list_door_right = []
-list_door_right_rect = []
 list_door_left = []
-list_door_left_rect = []
 
 list_turrets = []
-list_turrets_rect = []
+list_bullet = []
+
+list_hero = []
+list_npc = []
+
 
 
 
@@ -41,13 +43,16 @@ def create_area():
                 )
 
                 list_block_area.append(block)
-                list_block_rect.append(block.RECT)
+                # list_block_rect.append(block.RECT)
 
             if column == "p":
                 hero.RECT.x = x
                 hero.RECT.y = y
                 hero.X = x
                 hero.Y = y
+                
+                list_hero.append(hero)
+                
             
             if column == "r":
                 door_right = Area(
@@ -55,11 +60,11 @@ def create_area():
                     height = block_height,
                     x = x,
                     y = y,
-                    name_img = "images\\door.png",
+                    name_img = "images\door.png",
                     color = "yellow"
                 )
                 list_door_right.append(door_right)
-                list_door_right_rect.append(door_right.RECT)
+                # list_door_right_rect.append(door_right.RECT)
 
             if column == "l":
                 door_left = Area(
@@ -67,12 +72,12 @@ def create_area():
                     height = block_height,
                     x = x,
                     y = y,
-                    name_img = "images\\door.png",
+                    name_img = "images\door.png",
                     color = "yellow"
                 )
 
                 list_door_left.append(door_left)
-                list_door_right_rect.append(door_left.RECT)
+                # list_door_right_rect.append(door_left.RECT)
 
             if column == "t":
                 turret.RECT.x = x
@@ -80,7 +85,15 @@ def create_area():
                 turret.X = x
                 turret.Y = y
                 list_turrets.append(turret)
-                list_turrets_rect.append(turret.RECT)
+                # list_turrets_rect.append(turret)
+
+            if column == "n":
+                prisoner.RECT.x = x
+                prisoner.RECT.y = y
+                prisoner.Y = y
+                prisoner.X = x
+
+                list_npc.append(prisoner)
 
             x += block_width
         y += block_height

@@ -42,13 +42,23 @@ class Settings:
     
     def draw(self, win):
         pygame.draw.rect(win, self.COLOR, self.RECT)
+        
 
-button = Settings(
+button_start = Settings(
     width = 420,
     height = 200,
     x = 210,
     y = 300,
-    name_img="images\\button_start.png",
+    name_img="images\\buttons\\button_start.png",
+    color = (0, 0, 0)
+)
+
+button_restart = Settings(
+    width = 420,
+    height = 200,
+    x = 210,
+    y = 300,
+    name_img="images\\buttons\\button_start.png",
     color = (0, 0, 0)
 )
 
