@@ -62,3 +62,32 @@ button_restart = Settings(
     color = (0, 0, 0)
 )
 
+bg1 = Settings(
+    width = 720,
+    height = 720,
+    x = 60,
+    y = 60,
+    name_img = "images\\bg.png",
+    color = "gray"
+)
+
+lever = Settings(
+    width= 20,
+    height = 20,
+    x = 700,
+    y = 200,
+    name_img = "images\lever.png",
+    color = "green"            
+)
+
+trapdoor = Settings(
+    width = 60,
+    height = 60,
+    x = 0,
+    y = 0,
+    name_img = "images\\trapdoor.png",
+    color = "red"
+)
+
+
+trapdoor_pressed = False

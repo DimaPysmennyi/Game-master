@@ -1,18 +1,18 @@
 
 level1 = [
     list("bbbbbbbbbbbbbb"),
-    list("b000b0000b000b"),
-    list("b0p0b0000b000b"),
-    list("b000000n00000b"),
-    list("bbbbbbbbbbbb0b"),
     list("b000000000000b"),
+    list("b0p0000000000b"),
+    list("b000000n00001b"),
+    list("bbbbbbbbbdbbbb"),
     list("b000000000000b"),
+    list("b0s0000000000b"),
     list("b0bbbbbbbbbbbb"),
     list("b000000000000b"),
     list("b000000000000b"),
     list("b000000000000b"),
     list("b000000000000b"),
-    list("b000000000000r"),
+    list("bt00000000000r"),
     list("bbbbbbbbbbbbbb")
 ]
 
@@ -29,7 +29,7 @@ level2 = [
     list("b000000000000b"),
     list("b00bbbbbbbbbbb"),
     list("b000000000000b"),
-    list("lp0000000000tb"),
+    list("lp00000000000b"),
     list("bbbbbbbbbbbbbb")
 ]
 

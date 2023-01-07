@@ -2,7 +2,7 @@
 import modules.settings as settings
 from modules.player import hero
 from modules.levels import *
-from modules.enemy import turret
+from modules.enemy import turret, siren
 from modules.npc import prisoner
 
 class Area(settings.Settings):
@@ -24,8 +24,10 @@ list_bullet = []
 list_hero = []
 list_npc = []
 
+list_lever = []
+list_lever.append(settings.lever)
 
-
+list_siren = []
 
 def create_area():
     x = 0
@@ -88,15 +90,32 @@ def create_area():
                 # list_turrets_rect.append(turret)
 
             if column == "n":
-                prisoner.RECT.x = x
-                prisoner.RECT.y = y
-                prisoner.Y = y
+                prisoner.RECT.x = x 
+                prisoner.RECT.y = y + 4
+                prisoner.Y = y + 4 
                 prisoner.X = x
 
                 list_npc.append(prisoner)
+
+            if column == "d":   
+                settings.trapdoor.RECT.x = x
+                settings.trapdoor.RECT.y = y
+                settings.trapdoor.X = x
+                settings.trapdoor.Y = y
+
+                list_block_area.append(settings.trapdoor)
+            
+            if column == "s":
+                siren.X = x
+                siren.RECT.x = x
+                siren.Y = y
+                siren.RECT.y = y
+
+                list_siren.append(siren)
 
             x += block_width
         y += block_height
         x = 0
 
+print(level1)
 create_area()

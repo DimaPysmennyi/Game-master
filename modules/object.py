@@ -9,6 +9,7 @@ class Object(settings.Settings):
         self.DIRECTION = "R"
         self.GRAVITY_SPEED = 2
         self.GRAVITY = True
+        self.COUNT_IMG = 0
         self.SPEED_ANIMATION = 0
         self.CURRENT_LEVEL = 0
         self.CURRENT_MAP = 0
@@ -68,7 +69,27 @@ class Object(settings.Settings):
         else:
             self.GRAVITY = False
         
-    
+    def animation(self, folder, first_img, last_img):
+        if self.COUNT_IMG > last_img or self.COUNT_IMG < 0:
+            self.COUNT_IMG = first_img
+
+        else:
+            if self.SPEED_ANIMATION == 3:   
+                self.NAME_IMG = f"images\{folder}\{self.COUNT_IMG}.png"
+                if first_img > last_img:
+                    self.COUNT_IMG -= 1
+
+                if first_img < last_img:
+                    self.COUNT_IMG += 1
+                self.SPEED_ANIMATION = 0
+
+            self.SPEED_ANIMATION += 1
+
+    def direction(self):
+        if self.DIRECTION == "R":
+            self.load_image()
+        if self.DIRECTION == "L":
+            self.load_image(direction=True)
         
     #         obj.GRAVITY = False
     #     else:

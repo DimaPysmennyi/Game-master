@@ -2,6 +2,7 @@ import pygame
 import modules.area as area
 from modules.player import hero
 import modules.settings as settings
+import modules.levels as levels
 import modules.enemy as enemy
 from modules.npc import prisoner
 
@@ -10,6 +11,8 @@ pygame.init()
 
 win_width = 840
 win_height = 840
+
+
 
 win = pygame.display.set_mode((win_width, win_height))
 pygame.display.set_caption("Game")
@@ -38,12 +41,16 @@ def run_game():
             #     settings.scene = "loc1"
         
         if settings.scene == "loc1":
-            
-            pygame.mixer.music.load('sounds\\bg.mp3')
-            pygame.mixer.music.play()
+            win.fill((0, 0, 0))
+
+            settings.bg1.blit_sprite(win)
+
+
 
             for wall in area.list_block_area:
                 wall.blit_sprite(win)
+
+
                 # wall.draw(win)
 
             for door in area.list_door_right:
@@ -54,26 +61,39 @@ def run_game():
                 door.blit_sprite(win)
             
             for turret in area.list_turrets:
-                turret.load_image(direction=True)
+                turret.load_image()
                 turret.blit_sprite(win)
-                enemy.turret.shoot(win, 200, width=80, height=25)
+                enemy.turret.shoot(win, "R", 200, width=80, height=25)
+
             
             for npc in area.list_npc:
                 npc.load_image(direction=True)
                 npc.blit_sprite(win)
 
+            for lever in area.list_lever:
+                lever.blit_sprite(win)
+
+            for siren in area.list_siren:
+                siren.blit_sprite(win)
+                siren.enemy_move(area)
+
             hero.move(area.list_block_area)
             hero.exit(area)
             hero.blit_sprite(win)
             hero.health_font(win)
+            
+            if settings.trapdoor_pressed == True:
+                settings.trapdoor.X = -100
+                settings.trapdoor.RECT.x = -100
+                
+
             if hero.SHOW_DIALOG == True:
                 prisoner.dialog("Вітаю! Зараз ти знаходишся у межгалактичній в'язниці.", win)
             
             if hero.HEALTH <= 0:
-                hero.die(win)
-                settings.scene = "game_over"
+                hero.die()
 
-            
+
 
         if settings.scene == "game_over":
             win.fill((168, 0, 0))

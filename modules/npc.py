@@ -40,7 +40,7 @@ class NPC(object.Object):
         win.blit(text, (51, 700))
 
 prisoner = NPC(
-    width = 45,
+    width = 40,
     height = 55,
     x = 0,
     y = 0,

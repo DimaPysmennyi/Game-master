@@ -18,11 +18,12 @@ class Player(object.Object):
         self.JUMP = False
         self.SHOW_DIALOG = False
         self.MAX_JUMP = 200
-        self.SPEED_JUMP = 5
+        self.SPEED_JUMP = 4
 
     def move(self, area):
 
         # self.col_down(area)
+    
         self.gravity(area)
 
         event = pygame.key.get_pressed()
@@ -31,20 +32,22 @@ class Player(object.Object):
 
         if event[pygame.K_d]:
             self.col_right(area)
+            self.DIRECTION = "R"
             if self.MOVE_RIGHT == True:
                 self.X += 5
                 self.RECT.x += 5
-                self.DIRECTION = "R"
-                self.animation(folder="Player", count_while=5, first_img=2, last_img=5)
+
+            self.animation("Player", 1, 3)
+            self.direction()
 
         if event[pygame.K_a]:
             self.col_left(area)
-
+            self.DIRECTION = "L"
             if self.MOVE_LEFT == True:
                 self.X -= 5
                 self.RECT.x -= 5
-                self.DIRECTION = "L"
-                self.animation(folder="Player", count_while=5, first_img=5, last_img=2)
+            self.animation("Player", 1, 3)
+            self.direction()
 
         if event[pygame.K_w] and self.JUMP == False and self.GRAVITY == False:
             self.JUMP = True
@@ -55,6 +58,15 @@ class Player(object.Object):
             if self.SHOW_DIALOG == False and self.RECT.x - 50 <= npc.prisoner.RECT.x:
                 self.SHOW_DIALOG = True
             
+            if settings.trapdoor_pressed == False:
+                if self.X + 10 >= settings.lever.X:
+                    settings.trapdoor_pressed = True
+
+
+
+
+              
+
         if self.SHOW_DIALOG == True and self.RECT.x - 50 > npc.prisoner.RECT.x:
             self.SHOW_DIALOG = False
         
@@ -75,6 +87,13 @@ class Player(object.Object):
         if self.MOVE_DOWN == True:
             self.GRAVITY = True
 
+     
+
+        if not event:
+            self.NAME_IMG = "images\Player\\0.png"
+            self.direction()
+        
+    
 
 
 
@@ -91,6 +110,9 @@ class Player(object.Object):
                 # area.list_turrets_rect.clear()
                 area.list_bullet.clear()
                 area.list_npc.clear()
+                area.list_lever.clear()
+                area.list_siren.clear()
+                
                 self.CURRENT_LEVEL += 1
                 area.create_area()
 
@@ -103,58 +125,40 @@ class Player(object.Object):
                 area.list_turrets.clear()
                 # area.list_turrets_rect.clear()
                 area.list_bullet.clear()
+                area.list_lever.clear()
                 area.list_npc.clear()
+                area.list_siren.clear()
                 
                 self.CURRENT_LEVEL -= 1
                 area.create_area()
 
-    def animation(self, folder=None, count_while=None, first_img=None, last_img=None):
-        self.SPEED_ANIMATION += 1
-        if self.SPEED_ANIMATION % count_while == 0:
-            if self.COUNT_IMG == last_img:
-                self.COUNT_IMG = first_img
-            self.NAME_IMG = f"images\\{folder}\\{self.COUNT_IMG}.png"
-            self.direction()
-            self.COUNT_IMG += 1
-        self.COUNT_IMG = 1
-        
-    def direction(self):
-        if self.DIRECTION == "R":
-            self.load_image()
-        if self.DIRECTION == "L":
-            self.load_image(direction=True)
-    
-    def damage(self, damage):
-        self.HEALTH -= damage
-    
-    # def heal(self, add_health):
-
-    
-    #health_width = 30
-    #health_height = 5
-
     def health_font(self, win):
         self.load_image()
-        bg_black = pygame.Rect(0, 0, 110, 65)
-        pygame.draw.rect(win, "black", bg_black)
+        bg_health = settings.Settings(
+            width = 270,
+            height = 200, 
+            x = -75,
+            y = -80,
+            name_img="images\Player\health_bg.png",
+            color = "yellow"
+        )
+        bg_health.blit_sprite(win)
         font = pygame.font.SysFont('fonts\Digital_Thin.ttf', 100)
         text = font.render(str(self.HEALTH), 1, (225,22,25), None)
-        win.blit(text, (65, 0))
+        win.blit(text, (70, 10))
         heart_sprite = settings.Settings(
             width = 60,
             height = 60, 
-            x = 0,
-            y = 0,
+            x = 5,
+            y = 10,
             name_img="images\Player\health.png",
             color = "yellow"
         )    
         heart_sprite.blit_sprite(win)
 
 
-    def die(self, win):
-        font = pygame.font.SysFont('arial', 40)
-        text = font.render('САЛАМ МАЛЕКУ', 1, (255, 255, 255), None)
-        win.blit(text, (200, 200))
+    def die(self):
+        settings.scene = "game_over"
     
     
 hero = Player(
@@ -162,6 +166,6 @@ hero = Player(
     height = 55,
     x = 0,
     y = 0,
-    name_img = "images\\Player\\1.png",
+    name_img = "images\\Player\\0.png",
     color = "red"
 ) 
