@@ -17,34 +17,41 @@ class Enemy(object.Object):
                 self.ENEMY_MOVE = False
                 self.DIRECTION = "L"
             else:
+                self.ENEMY_MOVE = True
                 self.X += 5
                 self.RECT.x += 5
 
         if self.DIRECTION == "L":
             self.col_left(area.list_block_area)
+            # print(self.MOVE_LEFT)
             if self.MOVE_LEFT == False:
                 self.ENEMY_MOVE = False
                 self.DIRECTION = "R"
+                print(self.ENEMY_MOVE)
             else:
+                self.ENEMY_MOVE = True
                 self.X -= 5
                 self.RECT.x -= 5
 
+                              
         if self.ENEMY_MOVE == True:
             if self.DIRECTION == "L":
                 self.col_left(area.list_hero)
+                # print(self.MOVE_LEFT)
                 if self.MOVE_LEFT == False:
-                    self.ENEMY_MOVE = False
+                    self.DIRECTION = "R"
                     player.hero.HEALTH -= 1
                 else:
                     self.ENEMY_MOVE = True
-
             if self.DIRECTION == "R":
                 self.col_right(area.list_hero)
+                # print(self.MOVE_RIGHT)
                 if self.MOVE_RIGHT == False:
+                    self.DIRECTION = "L"
                     player.hero.HEALTH -= 1
-                              
-                
-            
+                else:
+                    self.ENEMY_MOVE = True        
+        
     def shoot(self, win, direction, count_while, width, height):
         self.COUNT_BULLET += 1
         if self.COUNT_BULLET % count_while == 0 and len(area.list_bullet) < 3:
@@ -137,7 +144,7 @@ class Bullet(object.Object):
                 self.X += self.BULLET_SPEED                
 
 turret = Enemy(
-    width = 40,
+    width = 45,
     height = 55,
     x = 0,
     y = 0,
@@ -146,7 +153,7 @@ turret = Enemy(
 )
 
 siren = Enemy(
-    width = 40,
+    width = 45,
     height = 55,
     x = 0,
     y = 0,

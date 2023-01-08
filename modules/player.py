@@ -16,14 +16,12 @@ class Player(object.Object):
         self.MOVE_DOWN = False
         self.GRAVITY = False
         self.JUMP = False
-        self.SHOW_DIALOG = False
+        
         self.MAX_JUMP = 200
         self.SPEED_JUMP = 4
 
-    def move(self, area):
+    def move(self, area):       
 
-        # self.col_down(area)
-    
         self.gravity(area)
 
         event = pygame.key.get_pressed()
@@ -36,9 +34,9 @@ class Player(object.Object):
             if self.MOVE_RIGHT == True:
                 self.X += 5
                 self.RECT.x += 5
-
-            self.animation("Player", 1, 3)
             self.direction()
+            self.animation("Player", 1, 4)
+
 
         if event[pygame.K_a]:
             self.col_left(area)
@@ -46,32 +44,34 @@ class Player(object.Object):
             if self.MOVE_LEFT == True:
                 self.X -= 5
                 self.RECT.x -= 5
-            self.animation("Player", 1, 3)
             self.direction()
+            self.animation("Player", 1, 4)
+
 
         if event[pygame.K_w] and self.JUMP == False and self.GRAVITY == False:
             self.JUMP = True
 
-        if event[pygame.K_e]:
-            if self.SHOW_DIALOG == False and self.RECT.x + 50 >= npc.prisoner.RECT.x:
-                self.SHOW_DIALOG = True
-            if self.SHOW_DIALOG == False and self.RECT.x - 50 <= npc.prisoner.RECT.x:
-                self.SHOW_DIALOG = True
-            
+
+        if event[pygame.K_e]:   
             if settings.trapdoor_pressed == False:
                 if self.X + 10 >= settings.lever.X:
                     settings.trapdoor_pressed = True
+            
+            if settings.laser_pressed == False:
+                if self.X + 10 >= settings.lever2.X:
+                    settings.laser_pressed = True
 
 
-
-
+        # if siren.ENEMY_MOVE == True:
+        #     self.col_right(siren_list)
+        #     if self.MOVE_RIGHT == False:
+        #         print(self.MOVE_RIGHT)
+        #         self.HEALTH -= 1 
+        #     self.col_left(siren_list)
+        #     if self.MOVE_LEFT == False:
+        #         # print(self.MOVE_RIGHT)
+        #         self.HEALTH -= 1 
               
-
-        if self.SHOW_DIALOG == True and self.RECT.x - 50 > npc.prisoner.RECT.x:
-            self.SHOW_DIALOG = False
-        
-        if self.SHOW_DIALOG == True and self.RECT.x + 50 < npc.prisoner.RECT.x:
-            self.SHOW_DIALOG = False
 
         if self.JUMP == True:
             self.col_up(area)
@@ -79,11 +79,15 @@ class Player(object.Object):
             self.Y -= self.SPEED_JUMP
             self.MAX_JUMP -= self.SPEED_JUMP
             self.GRAVITY = False
+            print(self.MAX_JUMP)
             if self.MAX_JUMP == 0:
                 self.JUMP = False
                 self.MAX_JUMP = 200
                 self.GRAVITY = True
-        
+    
+        if self.JUMP == False:
+            self.MAX_JUMP = 200
+
         if self.MOVE_DOWN == True:
             self.GRAVITY = True
 
@@ -95,6 +99,20 @@ class Player(object.Object):
         
     
 
+    def show_dialog(self, npc_object):
+        event = pygame.key.get_pressed()
+        if event[pygame.K_e]:
+            
+            if npc_object.SHOW_DIALOG == False and self.RECT.x + 50 >= npc_object.RECT.x and self.Y == npc_object.Y:
+                npc_object.SHOW_DIALOG = True
+            if npc_object.SHOW_DIALOG == False and self.RECT.x - 50 <= npc_object.RECT.x and self.Y == npc_object.Y:
+                npc_object.SHOW_DIALOG = True
+            
+        if npc_object.SHOW_DIALOG == True and self.RECT.x - 50 > npc_object.RECT.x:
+            npc_object.SHOW_DIALOG = False
+        
+        if npc_object.SHOW_DIALOG == True and self.RECT.x + 50 < npc_object.RECT.x:
+            npc_object.SHOW_DIALOG = False
 
 
     def exit(self, area):
@@ -111,6 +129,7 @@ class Player(object.Object):
                 area.list_bullet.clear()
                 area.list_npc.clear()
                 area.list_lever.clear()
+                area.list_bed.clear()
                 area.list_siren.clear()
                 
                 self.CURRENT_LEVEL += 1
@@ -126,6 +145,7 @@ class Player(object.Object):
                 # area.list_turrets_rect.clear()
                 area.list_bullet.clear()
                 area.list_lever.clear()
+                area.list_bed.clear()
                 area.list_npc.clear()
                 area.list_siren.clear()
                 

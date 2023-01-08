@@ -1,14 +1,24 @@
-
+'''
+b - block
+p - player
+d = trapdoor
+n = npc
+s = siren
+r = right door
+l = left door
+t = turret
+y = laser
+'''
 level1 = [
     list("bbbbbbbbbbbbbb"),
-    list("b000000000000b"),
-    list("b0p0000000000b"),
-    list("b000000n00001b"),
+    list("b00b000000000b"),
+    list("b00b000000000b"),
+    list("b0p0000n00000b"),
     list("bbbbbbbbbdbbbb"),
     list("b000000000000b"),
-    list("b0s0000000000b"),
-    list("b0bbbbbbbbbbbb"),
     list("b000000000000b"),
+    list("b0s0000000000b"),
+    list("bybbbbbbbbbbbb"),
     list("b000000000000b"),
     list("b000000000000b"),
     list("b000000000000b"),

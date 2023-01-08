@@ -9,6 +9,7 @@ class Object(settings.Settings):
         self.DIRECTION = "R"
         self.GRAVITY_SPEED = 2
         self.GRAVITY = True
+        self.SHOW_DIALOG = False
         self.COUNT_IMG = 0
         self.SPEED_ANIMATION = 0
         self.CURRENT_LEVEL = 0
@@ -17,8 +18,9 @@ class Object(settings.Settings):
     def col_right(self, list_walls):
        for wall in list_walls:
            if self.Y <= wall.Y + wall.HEIGHT and self.Y + self.HEIGHT >= wall.Y:
-               if self.X + self.WIDTH >= wall.X - 5  and self.X <= wall.X:
+               if self.X + self.WIDTH >= wall.X - 5 and self.X <= wall.X:
                    self.MOVE_RIGHT = False
+                #    print("da")
                    break
                else:
                    self.MOVE_RIGHT = True
@@ -31,6 +33,7 @@ class Object(settings.Settings):
          for wall in list_walls:
             if self.Y <= wall.Y + wall.HEIGHT and self.Y + self.HEIGHT >= wall.Y:
                 if self.X <= wall.X + wall.WIDTH + 5 and self.X >= wall.X:
+                    # print("da")
                     self.MOVE_LEFT = False
                     break
                 else:
@@ -74,7 +77,7 @@ class Object(settings.Settings):
             self.COUNT_IMG = first_img
 
         else:
-            if self.SPEED_ANIMATION == 3:   
+            if self.SPEED_ANIMATION == 4:   
                 self.NAME_IMG = f"images\{folder}\{self.COUNT_IMG}.png"
                 if first_img > last_img:
                     self.COUNT_IMG -= 1

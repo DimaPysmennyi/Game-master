@@ -26,8 +26,14 @@ list_npc = []
 
 list_lever = []
 list_lever.append(settings.lever)
+list_lever.append(settings.lever2)
+
+list_bed = []
+list_bed.append(settings.bed)
 
 list_siren = []
+
+list_laser = []
 
 def create_area():
     x = 0
@@ -100,7 +106,7 @@ def create_area():
             if column == "d":   
                 settings.trapdoor.RECT.x = x
                 settings.trapdoor.RECT.y = y
-                settings.trapdoor.X = x
+                settings.trapdoor.X = x 
                 settings.trapdoor.Y = y
 
                 list_block_area.append(settings.trapdoor)
@@ -108,14 +114,23 @@ def create_area():
             if column == "s":
                 siren.X = x
                 siren.RECT.x = x
-                siren.Y = y
-                siren.RECT.y = y
+                siren.Y = y - 10
+                siren.RECT.y = y - 10
 
                 list_siren.append(siren)
+
+            if column == "y":
+                settings.laser.RECT.x = x 
+                settings.laser.RECT.y = y
+                settings.laser.Y = y 
+                settings.laser.X = x
+
+                list_block_area.append(settings.laser)
+                
 
             x += block_width
         y += block_height
         x = 0
 
-print(level1)
+# print(level1)
 create_area()

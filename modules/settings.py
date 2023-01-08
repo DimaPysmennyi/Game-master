@@ -53,12 +53,21 @@ button_start = Settings(
     color = (0, 0, 0)
 )
 
+
+button_exit = Settings(
+    width = 420,
+    height = 200,
+    x = 210,
+    y = 520,
+    name_img="images\\buttons\\button_exit.png",
+    color = (0, 0, 0)
+)
 button_restart = Settings(
     width = 420,
     height = 200,
     x = 210,
-    y = 300,
-    name_img="images\\buttons\\button_start.png",
+    y = 420,
+    name_img="images\\buttons\\button_restart.png",
     color = (0, 0, 0)
 )
 
@@ -71,12 +80,48 @@ bg1 = Settings(
     color = "gray"
 )
 
+bg_death = Settings(
+    width = 840,
+    height = 840,
+    x = 0,
+    y = 0,
+    name_img = "images\\death_bg.png",
+    color = "gray"
+)
+
+bg_menu = Settings(
+    width = 840,
+    height = 840,
+    x = 0,
+    y = 0,
+    name_img = "images\\start_bg.png",
+    color = "gray"
+)
+
+cutscene = Settings(
+    width = 840,
+    height = 840,
+    x = 0,
+    y = 0,
+    name_img = "images\\cutscene1.png",
+    color = "gray"
+)
+
 lever = Settings(
-    width= 20,
-    height = 20,
+    width= 30,
+    height = 30,
     x = 700,
     y = 200,
-    name_img = "images\lever.png",
+    name_img = "images\lever_off.png",
+    color = "green"            
+)
+
+lever2 = Settings(
+    width= 30,
+    height = 30,
+    x = 700,
+    y = 400,
+    name_img = "images\lever_off.png",
     color = "green"            
 )
 
@@ -91,3 +136,41 @@ trapdoor = Settings(
 
 
 trapdoor_pressed = False
+laser_pressed = False
+
+player_head = Settings(
+    width = 170,
+    height = 140,
+    x = 110,
+    y = 480,
+    name_img = "images\\npc\player_head.png",
+    color = "black"
+)
+prisoner_head = Settings(
+    width = 160,
+    height = 140,
+    x = 580,
+    y = 480,
+    name_img = "images\\npc\\prisoner_head.png",
+    color = "black"
+)
+# слабо слабо слабо
+bed = Settings(
+    width = 100,
+    height = 80,
+    x = 60,
+    y = 175,
+    name_img = "images\\bed.png",
+    color = "black"
+)
+
+laser = Settings(
+    width = 60,
+    height = 60,
+    x = 0,
+    y = 0,
+    name_img = "images\\laser.png",
+    color = "black"
+)
+
+cutscene_speed = 0
