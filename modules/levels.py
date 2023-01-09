@@ -32,17 +32,17 @@ level2 = [
     list("bbbbbbbbbbbbbb"),
     list("b000000000000b"),
     list("b000000000000b"),
-    list("b000010000000b"),
-    list("bi00010000000b"),
-    list("bbbbb1bbbbbbbb"),
-    list("b000010000000b"),
-    list("b000010000000b"),
-    list("b00101000000tb"),
-    list("bbb1bbbbbbbbbb"),
-    list("b0010000c0000b"),
-    list("b0010000cc000b"),
-    list("lp01000ccc000r"),
-    list("bbbbbbbdddbbbb")
+    list("b000000000000b"),
+    list("bi000100000s0b"),
+    list("bbbbb1bbbbbb1b"),
+    list("b0000100000b1b"),
+    list("b0000100000b1b"),
+    list("b0010100000t1b"),
+    list("bbb1bbbbbbbb1b"),
+    list("b0010000c0001b"),
+    list("b0010000cc001b"),
+    list("lp01000ccc001r"),
+    list("bbbbbbbbbbbbbb")
 ]
 
 

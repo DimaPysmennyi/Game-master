@@ -134,17 +134,18 @@ lever2 = Settings(
     color = "green"            
 )
 
-trapdoor = Settings(
-    width = 60,
-    height = 60,
-    x = 0,
-    y = 0,
-    name_img = "images\\trapdoor.png",
-    color = "red"
+lever3 = Settings(
+    width= 30,
+    height = 30,
+    x = 700,
+    y = 184,
+    name_img = "images\lever_off.png",
+    color = "green"            
 )
 
 
 trapdoor_pressed = False
+trapdoor2_pressed = False
 laser_pressed = False
 
 player_head = Settings(

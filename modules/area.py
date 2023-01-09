@@ -27,11 +27,14 @@ list_npc = []
 list_lever = []
 list_lever.append(settings.lever)
 list_lever.append(settings.lever2)
+list_lever.append(settings.lever3)
 
 list_bed = []
 list_bed.append(settings.bed)
 
 list_siren = []
+
+list_trapdoor = []
 
 list_laser = []
 
@@ -114,12 +117,17 @@ def create_area():
                 list_npc.append(illya)
 
             if column == "d":   
-                settings.trapdoor.RECT.x = x
-                settings.trapdoor.RECT.y = y
-                settings.trapdoor.X = x 
-                settings.trapdoor.Y = y
+                trapdoor = Area(
+                    width = 60,
+                    height = 60,
+                    x = x,
+                    y = y,
+                    name_img = "images\\trapdoor.png",
+                    color = "red"
+                )
 
-                list_block_area.append(settings.trapdoor)
+                list_block_area.append(trapdoor)
+                list_trapdoor.append(trapdoor)
             
             if column == "s":
                 siren.X = x

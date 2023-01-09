@@ -58,9 +58,16 @@ class Player(object.Object):
 
                     settings.trapdoor_pressed = True
             
+
+            
             if self.X + 10 >= settings.lever2.X and self.Y == settings.lever2.Y:
                 if settings.laser_pressed == False:
                     settings.laser_pressed = True
+
+            if self.X + 10 >= settings.lever3.X and self.Y == settings.lever3.Y:
+                if settings.trapdoor2_pressed == False:
+
+                    settings.trapdoor2_pressed = True
 
 
         # if siren.ENEMY_MOVE == True:
@@ -116,7 +123,7 @@ class Player(object.Object):
             npc_object.SHOW_DIALOG = False
 
 
-    def exit(self, area):
+    def exit(self, area, win):
         for door in area.list_door_right:
             if self.RECT.x >= door.RECT.x and self.RECT.y >= door.RECT.y:
                 area.list_block_area.clear()
@@ -130,6 +137,7 @@ class Player(object.Object):
                 area.list_bullet.clear()
                 area.list_npc.clear()
                 area.list_lever.clear()
+                area.list_ladder.clear()
                 area.list_bed.clear()
                 area.list_siren.clear()
                 
@@ -152,12 +160,16 @@ class Player(object.Object):
                 # area.list_turrets_rect.clear()
                 area.list_bullet.clear()
                 area.list_lever.clear()
+                area.list_ladder.clear()
                 area.list_bed.clear()
                 area.list_npc.clear()
                 area.list_siren.clear()
                 
                 self.CURRENT_LEVEL -= 1
 
+                if self.CURRENT_LEVEL == 1:
+                    settings.bg1.blit_sprite(win)
+                    settings.scene = "loc1"
                 if self.CURRENT_LEVEL == 1:
                     settings.scene = "loc2"
                 if self.CURRENT_LEVEL == 2:

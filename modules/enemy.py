@@ -56,15 +56,24 @@ class Enemy(object.Object):
         self.COUNT_BULLET += 1
         if self.COUNT_BULLET % count_while == 0 and len(area.list_bullet) < 3:
             #  and len(self.LIST_BULLET) < 1
-            bullet1 = Bullet(
-                x = self.X + width,
-                y = self.Y + height//2,
-                width= 20,
-                height= 10,
-                name_img= "images\enemies\\bullet.png",
-                color= (255,0,0)
-            )
-
+            if direction== "L":
+                bullet1 = Bullet(
+                    x = self.X,
+                    y = self.Y + height//2,
+                    width= 20,
+                    height= 10,
+                    name_img= "images\enemies\\bullet.png",
+                    color= (255,0,0)
+                )
+            if direction == "R":
+                bullet1 = Bullet(
+                    x = self.X + self.WIDTH,
+                    y = self.Y + height//2,
+                    width= 20,
+                    height= 10,
+                    name_img= "images\enemies\\bullet.png",
+                    color= (255,0,0)
+                )
             area.list_bullet.append(bullet1)
 
 

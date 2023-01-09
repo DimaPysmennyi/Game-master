@@ -101,13 +101,14 @@ def run_game():
             print(hero.Y)
             hero.move(area.list_block_area, area.list_ladder)
             hero.show_dialog(prisoner)
-            hero.exit(area)
+            hero.exit(area, win)
             hero.blit_sprite(win)
             hero.health_font(win)
             
             if settings.trapdoor_pressed == True:
-                settings.trapdoor.X = -100
-                settings.trapdoor.RECT.x = -100
+                for trapdoor in area.list_trapdoor:
+                    trapdoor.X = -100
+                    trapdoor.RECT.x = -100
             
             if settings.laser_pressed == True:
                 settings.laser.X = -100
@@ -154,7 +155,7 @@ def run_game():
                 
             
             for turret in area.list_turrets:
-                turret.load_image()
+                turret.load_image(direction=True)
                 turret.blit_sprite(win)
                 enemy.turret.shoot(win, "L", 200, width=80, height=25)
 
@@ -163,25 +164,26 @@ def run_game():
                 npc.load_image()
                 npc.blit_sprite(win)
                 
+            for object in area.list_lever:
+                object.blit_sprite(win)
 
             for siren in area.list_siren:
                 siren.blit_sprite(win)
                 siren.enemy_move(area)
 
             print(hero.Y, illya.Y)
+            
             hero.move(area.list_block_area, area.list_ladder)
             hero.show_dialog(illya)
-            hero.exit(area)
+            hero.exit(area, win)
             hero.blit_sprite(win)
             hero.health_font(win)
             
-            if settings.trapdoor_pressed == True:
-                settings.trapdoor.X = -100
-                settings.trapdoor.RECT.x = -100
-            
-            if settings.laser_pressed == True:
-                settings.laser.X = -100
-                settings.laser.RECT.x = -100
+            # if settings.trapdoor2_pressed == True:
+            for trapdoor in area.list_trapdoor:
+                trapdoor.blit_sprite(win)
+        
+
                 
 
             if illya.SHOW_DIALOG == True:
@@ -200,7 +202,7 @@ def run_game():
                         if mouse[0] >= settings.yes_button.X and mouse[0] <= settings.yes_button.X + settings.yes_button.WIDTH:
                             if mouse[1] >= settings.yes_button.Y and mouse[1] <= settings.yes_button.Y + settings.yes_button.HEIGHT:
                                 illya.JOKE = "tell"
-                                index_joke = random.randint(0, 6)
+                                index_joke = random.randint(0, 5)
 
                         if mouse[0] >= settings.no_button.X and mouse[0] <= settings.no_button.X + settings.no_button.WIDTH:
                             if mouse[1] >= settings.no_button.Y and mouse[1] <= settings.no_button.Y + settings.no_button.HEIGHT:
@@ -242,6 +244,7 @@ def run_game():
                         hero.Y = 184
                         hero.RECT.x = 120
                         hero.RECT.y = 184
+                        settings.bg1.blit_sprite()
                         settings.trapdoor.X = 540
                         settings.trapdoor.Y = 240
                         settings.trapdoor.RECT.x = 540
