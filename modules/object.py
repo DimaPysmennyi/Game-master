@@ -10,6 +10,8 @@ class Object(settings.Settings):
         self.GRAVITY_SPEED = 2
         self.GRAVITY = True
         self.SHOW_DIALOG = False
+        self.JUMP = False
+
         self.COUNT_IMG = 0
         self.SPEED_ANIMATION = 0
         self.CURRENT_LEVEL = 0
@@ -94,8 +96,4 @@ class Object(settings.Settings):
         if self.DIRECTION == "L":
             self.load_image(direction=True)
         
-    #         obj.GRAVITY = False
-    #     else:
-    #         obj.GRAVITY = True
 
-    # if obj.GRAVTITY == True:

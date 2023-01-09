@@ -1,9 +1,9 @@
-
+import modules.object as object
 import modules.settings as settings
 from modules.player import hero
 from modules.levels import *
 from modules.enemy import turret, siren
-from modules.npc import prisoner
+from modules.npc import prisoner, illya
 
 class Area(settings.Settings):
     def __init__(self, **kwargs):
@@ -34,6 +34,8 @@ list_bed.append(settings.bed)
 list_siren = []
 
 list_laser = []
+
+list_ladder = []
 
 def create_area():
     x = 0
@@ -102,6 +104,14 @@ def create_area():
                 prisoner.X = x
 
                 list_npc.append(prisoner)
+            
+            if column == "i":
+                illya.X = x
+                illya.RECT.x = x
+                illya.Y = y + 4
+                illya.RECT.y = y + 4
+
+                list_npc.append(illya)
 
             if column == "d":   
                 settings.trapdoor.RECT.x = x
@@ -126,8 +136,33 @@ def create_area():
                 settings.laser.X = x
 
                 list_block_area.append(settings.laser)
-                
+            
+            if column == "1":
+                ladder = Area(
+                    width = 60,
+                    height = 60,
+                    x = x,
+                    y = y,
+                    name_img="images\ladder.png",
+                    color = (0, 0, 0)
+                )
+            
+                list_ladder.append(ladder)
 
+            if column == "c":
+                crate = object.Object(
+                    width = 60,
+                    height = 60,
+                    x = x,
+                    y = y,
+                    name_img = "images\wall1.png",
+                    color = "yellow"
+                )
+
+                crate.gravity(list_block_area)
+
+                list_block_area.append(crate)
+                
             x += block_width
         y += block_height
         x = 0

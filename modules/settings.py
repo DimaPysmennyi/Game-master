@@ -80,6 +80,15 @@ bg1 = Settings(
     color = "gray"
 )
 
+bg2 = Settings(
+    width = 720,
+    height = 720,
+    x = 60,
+    y = 60,
+    name_img = "images\\bg2.png",
+    color = "gray"
+)
+
 bg_death = Settings(
     width = 840,
     height = 840,
@@ -111,7 +120,7 @@ lever = Settings(
     width= 30,
     height = 30,
     x = 700,
-    y = 200,
+    y = 184,
     name_img = "images\lever_off.png",
     color = "green"            
 )
@@ -120,7 +129,7 @@ lever2 = Settings(
     width= 30,
     height = 30,
     x = 700,
-    y = 400,
+    y = 424,
     name_img = "images\lever_off.png",
     color = "green"            
 )
@@ -154,6 +163,34 @@ prisoner_head = Settings(
     name_img = "images\\npc\\prisoner_head.png",
     color = "black"
 )
+
+illya_head = Settings(
+    width = 160,
+    height = 140,
+    x = 580,
+    y = 480,
+    name_img = "images\\npc\\illya_head.png",
+    color = "black"
+)
+
+yes_button = Settings(
+    width = 100,
+    height = 50,
+    x = 610,
+    y = 750,
+    name_img = "images\\npc\yes.png",
+    color = "black"
+)
+
+no_button = Settings(
+    width = 100,
+    height = 50,
+    x = 500,
+    y = 750,
+    name_img = "images\\npc\\no.png",
+    color = "black"
+)
+
 # слабо слабо слабо
 bed = Settings(
     width = 100,
@@ -171,6 +208,15 @@ laser = Settings(
     y = 0,
     name_img = "images\\laser.png",
     color = "black"
+)
+
+ladder = Settings(
+    width = 60,
+    height = 60,
+    x = 0,
+    y = 0,
+    name_img="images\ladder.png",
+    color = (0, 0, 0)
 )
 
 cutscene_speed = 0

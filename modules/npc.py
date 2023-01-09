@@ -5,6 +5,7 @@ import modules.object as object
 class NPC(object.Object):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.JOKE = None
         
     def dialog(self, win, head1, head2):
         dialog_win = object.Object(
@@ -34,5 +35,14 @@ prisoner = NPC(
     x = 0,
     y = 0,
     name_img = "images\\npc\\prisoner.png",
+    color = (52,198,52)
+)
+
+illya = NPC(
+    width = 45,
+    height = 55,
+    x = 0,
+    y = 0,
+    name_img = "images\\npc\\illya.png",
     color = (52,198,52)
 )

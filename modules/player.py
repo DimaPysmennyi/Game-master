@@ -15,12 +15,12 @@ class Player(object.Object):
         self.MOVE_LEFT = False
         self.MOVE_DOWN = False
         self.GRAVITY = False
-        self.JUMP = False
+
         
-        self.MAX_JUMP = 200
+        self.MAX_JUMP = 240
         self.SPEED_JUMP = 4
 
-    def move(self, area):       
+    def move(self, area, list_ladder):       
 
         self.gravity(area)
 
@@ -53,12 +53,13 @@ class Player(object.Object):
 
 
         if event[pygame.K_e]:   
-            if settings.trapdoor_pressed == False:
-                if self.X + 10 >= settings.lever.X:
+            if self.X + 10 >= settings.lever.X and self.Y == settings.lever.Y:
+                if settings.trapdoor_pressed == False:
+
                     settings.trapdoor_pressed = True
             
-            if settings.laser_pressed == False:
-                if self.X + 10 >= settings.lever2.X:
+            if self.X + 10 >= settings.lever2.X and self.Y == settings.lever2.Y:
+                if settings.laser_pressed == False:
                     settings.laser_pressed = True
 
 
@@ -82,11 +83,11 @@ class Player(object.Object):
             print(self.MAX_JUMP)
             if self.MAX_JUMP == 0:
                 self.JUMP = False
-                self.MAX_JUMP = 200
+                self.MAX_JUMP = 280
                 self.GRAVITY = True
     
         if self.JUMP == False:
-            self.MAX_JUMP = 200
+            self.MAX_JUMP = 280
 
         if self.MOVE_DOWN == True:
             self.GRAVITY = True
@@ -133,6 +134,12 @@ class Player(object.Object):
                 area.list_siren.clear()
                 
                 self.CURRENT_LEVEL += 1
+
+                if self.CURRENT_LEVEL == 1:
+                    settings.scene = "loc2"
+                if self.CURRENT_LEVEL == 2:
+                    settings.scene = "loc3"
+
                 area.create_area()
 
         for door in area.list_door_left:
@@ -150,6 +157,12 @@ class Player(object.Object):
                 area.list_siren.clear()
                 
                 self.CURRENT_LEVEL -= 1
+
+                if self.CURRENT_LEVEL == 1:
+                    settings.scene = "loc2"
+                if self.CURRENT_LEVEL == 2:
+                    settings.scene = "loc3"
+
                 area.create_area()
 
     def health_font(self, win):
