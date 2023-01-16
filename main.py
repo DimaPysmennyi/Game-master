@@ -3,8 +3,10 @@ import modules.area as area
 from modules.player import hero
 import modules.settings as settings
 import modules.enemy as enemy
-from modules.npc import prisoner, illya
+from modules.npc import prisoner, illya, security_guy
+import modules.vending_machine as mvm
 import modules.jokes as jokes
+import modules.dialogs as dialogs
 import random
 
 pygame.init()
@@ -23,7 +25,6 @@ def run_game():
 
     while game:
         win.fill((0,0,0))
-        print(settings.scene)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game = False
@@ -61,8 +62,6 @@ def run_game():
 
             settings.bg1.blit_sprite(win)
             
-
-            print(settings.laser.X, settings.laser.Y)
             
 
             for wall in area.list_block_area:
@@ -98,10 +97,9 @@ def run_game():
                 siren.blit_sprite(win)
                 siren.enemy_move(area)
 
-            print(hero.Y)
-            hero.move(area.list_block_area, area.list_ladder)
+            hero.move(area.list_block_area)
             hero.show_dialog(prisoner)
-            hero.exit(area, win)
+            hero.exit(area, enemy, win)
             hero.blit_sprite(win)
             hero.health_font(win)
             
@@ -117,16 +115,35 @@ def run_game():
 
             if prisoner.SHOW_DIALOG == True:
                 prisoner.dialog(win, settings.player_head, settings.prisoner_head)
-                if prisoner.SPEED_ANIMATION < 300:
-                    prisoner.show_text("Вітаю! Зараз ти знаходишся у межгалактичній в'язниці. Тут,", win, 35, 55, 675)
-                    prisoner.show_text("саме у космосі, за гратами знаходяться, ті хто здогадався", win, 35, 55, 705)
-                    prisoner.show_text("про те, що на Землі існує тіньове правительство. Щоб", win, 35, 55, 735)
-                    prisoner.show_text("втікти звідси, тобі доведеться знайти космічний корабель.", win, 35, 55, 765)
+                srez = 0
+                for symbol in range(len(dialogs.prisoner_dialog[0])):
+                    srez += 1
+                    security_guy.show_text(dialogs.prisoner_dialog[0][0:srez], win, 35, 55, 675)
                     prisoner.SPEED_ANIMATION += 1
+                    if symbol == dialogs.prisoner_dialog[0][-1]:
+                        srez = 0
+
+
+                for symbol in range(len(dialogs.prisoner_dialog[1])):
+                    srez += 1
+                    prisoner.show_text(dialogs.prisoner_dialog[1][0:srez], win, 35, 55, 705)
+                    if symbol == dialogs.prisoner_dialog[1][-1]:
+                        srez = 0
+                for symbol in range(len(dialogs.prisoner_dialog[2])):
+                    srez += 1
+                    prisoner.show_text(dialogs.prisoner_dialog[2][0:srez], win, 35, 55, 735)
+                    if symbol == dialogs.prisoner_dialog[2][-1]:
+                        srez = 0
+                for symbol in range(len(dialogs.prisoner_dialog[3])):
+                    srez += 1
+                    prisoner.show_text(dialogs.prisoner_dialog[3][0:srez], win, 35, 55, 765)
+                    if symbol == dialogs.prisoner_dialog[3][-1]:
+                        srez = 0
+                # prisoner.show_text("втікти звідси, тобі доведеться знайти космічний корабель.", win, 35, 55, 765)
                 
-                if prisoner.SPEED_ANIMATION >= 300:
-                    prisoner.show_text("Але обережно! Тут ти можеш зустріти різних", win, 35, 180, 675)
-                    prisoner.show_text("небезпечних істот. Удачі!", win, 35, 280, 705)
+                # if prisoner.SPEED_ANIMATION >= 300:
+                #     prisoner.show_text("Але обережно! Тут ти можеш зустріти різних", win, 35, 180, 675)
+                #     prisoner.show_text("небезпечних істот. Удачі!", win, 35, 280, 705)
 
             # print(settings.trapdoor.X, settings.trapdoor.Y)
             if hero.HEALTH == 0:
@@ -171,11 +188,14 @@ def run_game():
                 siren.blit_sprite(win)
                 siren.enemy_move(area)
 
-            print(hero.Y, illya.Y)
-            
-            hero.move(area.list_block_area, area.list_ladder)
+
+            print(hero.INVENTORY)
+            if not "keys" in hero.INVENTORY:
+                settings.keys.blit_sprite(win)
+
+            hero.move(area.list_block_area)
             hero.show_dialog(illya)
-            hero.exit(area, win)
+            hero.exit(area, enemy, win)
             hero.blit_sprite(win)
             hero.health_font(win)
             
@@ -202,7 +222,7 @@ def run_game():
                         if mouse[0] >= settings.yes_button.X and mouse[0] <= settings.yes_button.X + settings.yes_button.WIDTH:
                             if mouse[1] >= settings.yes_button.Y and mouse[1] <= settings.yes_button.Y + settings.yes_button.HEIGHT:
                                 illya.JOKE = "tell"
-                                index_joke = random.randint(0, 5)
+                                index_joke = random.randint(0, 4)
 
                         if mouse[0] >= settings.no_button.X and mouse[0] <= settings.no_button.X + settings.no_button.WIDTH:
                             if mouse[1] >= settings.no_button.Y and mouse[1] <= settings.no_button.Y + settings.no_button.HEIGHT:
@@ -218,13 +238,108 @@ def run_game():
                     illya.show_text("Ну і будь ласка!", win, 35, 55, 675)
                     # illya.SPEED_ANIMATION += 1
 
-                # if illya.SPEED_ANIMATION >= 300:
-                #     illya.show_text("Але обережно! Тут ти можеш зустріти різних", win, 35, 180, 675)
-                #     illya.show_text("небезпечних істот. Удачі!", win, 35, 280, 705)
-
-            # print(settings.trapdoor.X, settings.trapdoor.Y)
             if hero.HEALTH == 0:
                 settings.scene = "game_over"
+
+        if settings.scene == "loc3":
+            win.fill((0, 0, 0))
+            for block in area.list_block_area:
+                block.blit_sprite(win)
+
+            for door in area.list_door_right:
+                # door.draw(win)
+                door.blit_sprite(win)
+
+            for door in area.list_door_left:
+                # door.draw(win)
+                door.blit_sprite(win)
+
+            for npc in area.list_npc:
+                npc.draw(win)
+
+            for vm in area.list_vending_machine:
+                vm.blit_sprite(win)
+
+            hero.move(area.list_block_area)
+            hero.show_dialog(security_guy)
+            hero.exit(area, enemy, win)
+            hero.blit_sprite(win)
+            hero.health_font(win)
+
+            if security_guy.SHOW_DIALOG == True:
+                security_guy.dialog(win, settings.player_head, settings.security_guy_head)
+                if settings.vending_machine_pressed == False:
+                    srez = 0
+                    for symbol in range(len(dialogs.security_guy_dialog[0])):
+                        srez += 1
+                        security_guy.show_text(dialogs.security_guy_dialog[0][0:srez], win, 35, 55, 675)
+                        if symbol == dialogs.security_guy_dialog[0][-1]:
+                            srez = 0
+
+                    for symbol in range(len(dialogs.security_guy_dialog[1])):
+                        srez += 1
+                        security_guy.show_text(dialogs.security_guy_dialog[1][0:srez], win, 35, 55, 705)
+                        if symbol == dialogs.security_guy_dialog[1][-1]:
+                            srez = 0
+                    
+                    for symbol in range(len(dialogs.security_guy_dialog[2])):
+                        srez += 1
+                        security_guy.show_text(dialogs.security_guy_dialog[2][0:srez], win, 35, 55, 735)
+                        if symbol == dialogs.security_guy_dialog[2][-1]:
+                            srez = 0
+
+                # security_guy.show_text("Лише з нею ти зможеш увімкнути ліфт. Я знаю, що вона є в", win, 35, 55, 705)
+                # security_guy.show_text("цьому автоматі, зверху від мене.", win, 35, 55, 735)
+
+                if settings.vending_machine_pressed == True:
+                    security_guy.dialog(win, settings.player_head, settings.security_guy_head)
+                    if not "keys" in hero.INVENTORY:
+                        if settings.vending_machine_pressed == False:
+                            srez = 0
+                            for symbol in range(len(dialogs.security_guy_dialog[3])):
+                                srez += 1
+                                security_guy.show_text(dialogs.security_guy_dialog[3][0:srez], win, 35, 55, 675)
+                                if symbol == dialogs.security_guy_dialog[3][-1]:
+                                    srez = 0
+
+                            for symbol in range(len(dialogs.security_guy_dialog[4])):
+                                srez += 1
+                                security_guy.show_text(dialogs.security_guy_dialog[4][0:srez], win, 35, 55, 705)
+                                if symbol == dialogs.security_guy_dialog[4][-1]:
+                                    srez = 0
+
+                            for symbol in range(len(dialogs.security_guy_dialog[5])):
+                                srez += 1
+                                security_guy.show_text(dialogs.security_guy_dialog[5][0:srez], win, 35, 55, 735)
+                                if symbol == dialogs.security_guy_dialog[5][-1]:
+                                    srez = 0
+
+                    if "keys" in hero.INVENTORY:
+                        hero.INVENTORY.remove("keys")
+                        srez = 0
+                        for symbol in range(len(dialogs.security_guy_dialog[6])):
+                            srez += 1
+                            security_guy.show_text(dialogs.security_guy_dialog[6][0:srez], win, 35, 55, 735)
+                            if symbol == dialogs.security_guy_dialog[6][-1]:
+                                srez = 0
+                        hero.INVENTORY.append("coin")
+        
+        if settings.scene == "vending machine":
+            settings.back_button.blit_sprite(win)
+            mouse = pygame.mouse.get_pos()
+            mouse_pressed = pygame.mouse.get_pressed()
+            if mouse_pressed[0]:
+                if mouse[0] >= settings.back_button.X and mouse[0] <= settings.back_button.X + settings.back_button.WIDTH:
+                    if mouse[1] >= settings.back_button.Y and mouse[1] <= settings.back_button.Y + settings.back_button.HEIGHT:
+                        settings.scene = "loc3"
+
+            if "coin" in hero.INVENTORY:
+                mvm.vending_machine(win)
+            else:
+                font = pygame.font.SysFont('fonts\Digital_Thin.ttf', 40)
+                text1 = font.render(str("Необхідно внести монету!"), 1, (255,255,255), (215,0,0))
+                win.blit(text1, (200, 420))
+
 
         if settings.scene == "game_over":
             win.fill((168, 0, 0))
@@ -235,20 +350,21 @@ def run_game():
             mouse = pygame.mouse.get_pos()
             mouse_pressed = pygame.mouse.get_pressed()
 
-            settings.button_restart.blit_sprite(win)
+            settings.button.blit_sprite(win)
             if mouse_pressed[0]:
-                if mouse[0] >= settings.button_restart.X and mouse[0] <= settings.button_restart.X + settings.button_restart.WIDTH:
-                    if mouse[1] >= settings.button_restart.Y and mouse[1] <= settings.button_restart.Y + settings.button_restart.HEIGHT:
+                if mouse[0] >= settings.button.X and mouse[0] <= settings.button.X + settings.button.WIDTH:
+                    if mouse[1] >= settings.button.Y and mouse[1] <= settings.button.Y + settings.button.HEIGHT:
                         hero.HEALTH = 3
                         hero.X = 120
                         hero.Y = 184
                         hero.RECT.x = 120
                         hero.RECT.y = 184
-                        settings.bg1.blit_sprite()
-                        settings.trapdoor.X = 540
-                        settings.trapdoor.Y = 240
-                        settings.trapdoor.RECT.x = 540
-                        settings.trapdoor.RECT.y = 240
+                        settings.bg1.blit_sprite(win)
+                        for trapdoor in area.list_trapdoor:
+                            trapdoor.X = 540
+                            trapdoor.Y = 240
+                            trapdoor.RECT.x = 540
+                            trapdoor.RECT.y = 240
                         settings.lever.NAME_IMG = "images\lever_off.png"
                         settings.laser.X = 60
                         settings.laser.Y = 480

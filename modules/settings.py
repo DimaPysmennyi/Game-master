@@ -62,7 +62,7 @@ button_exit = Settings(
     name_img="images\\buttons\\button_exit.png",
     color = (0, 0, 0)
 )
-button_restart = Settings(
+button = Settings(
     width = 420,
     height = 200,
     x = 210,
@@ -174,6 +174,15 @@ illya_head = Settings(
     color = "black"
 )
 
+security_guy_head = Settings(
+    width = 160,
+    height = 140,
+    x = 580,
+    y = 480,
+    name_img = "images\\npc\\security_guy_head.png",
+    color = "black"
+)
+
 yes_button = Settings(
     width = 100,
     height = 50,
@@ -189,6 +198,15 @@ no_button = Settings(
     x = 500,
     y = 750,
     name_img = "images\\npc\\no.png",
+    color = "black"
+)
+
+skip_button = Settings(
+    width = 100,
+    height = 50,
+    x = 740,
+    y = 480, 
+    name_img = "images\\npc\yes.png",
     color = "black"
 )
 
@@ -220,4 +238,32 @@ ladder = Settings(
     color = (0, 0, 0)
 )
 
+vending_machine = Settings(
+    width = 45,
+    height = 55,
+    x = 0,
+    y = 0,
+    name_img="images\gas.png",
+    color = (0, 0, 0)
+)
+
+keys = Settings(
+    width = 60,
+    height = 60,
+    x = 540,
+    y = 600,
+    name_img="images\keys.png",
+    color = (0, 0, 0)
+)
+
+back_button = Settings(
+    width = 100,
+    height = 50,
+    x = 0,
+    y = 0, 
+    name_img = "images\\npc\yes.png",
+    color = "black"
+)
+
 cutscene_speed = 0
+vending_machine_pressed = False

@@ -46,3 +46,12 @@ illya = NPC(
     name_img = "images\\npc\\illya.png",
     color = (52,198,52)
 )
+
+security_guy = NPC(
+    width = 45,
+    height = 55,
+    x = 0,
+    y = 0,
+    name_img = "images\\npc\\security_guy.png",
+    color = (52,198,52)
+)

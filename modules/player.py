@@ -15,12 +15,13 @@ class Player(object.Object):
         self.MOVE_LEFT = False
         self.MOVE_DOWN = False
         self.GRAVITY = False
+        self.INVENTORY = []
 
         
         self.MAX_JUMP = 240
         self.SPEED_JUMP = 4
 
-    def move(self, area, list_ladder):       
+    def move(self, area):       
 
         self.gravity(area)
 
@@ -58,17 +59,28 @@ class Player(object.Object):
 
                     settings.trapdoor_pressed = True
             
-
-            
             if self.X + 10 >= settings.lever2.X and self.Y == settings.lever2.Y:
                 if settings.laser_pressed == False:
                     settings.laser_pressed = True
 
-            if self.X + 10 >= settings.lever3.X and self.Y == settings.lever3.Y:
-                if settings.trapdoor2_pressed == False:
+            if self.X + 10 >= settings.vending_machine.X and self.Y == settings.vending_machine.Y:
+                settings.scene = "vending machine"
+                if settings.vending_machine_pressed == False:
+                    settings.vending_machine_pressed = True
+                
+            if self.X - 10 <= settings.vending_machine.X and self.Y == settings.vending_machine.Y:
+                settings.scene = "vending machine"
+                if settings.vending_machine_pressed == False:
+                    settings.vending_machine_pressed = True
+                    
 
-                    settings.trapdoor2_pressed = True
-
+            if self.X + 10 >= settings.keys.X and self.Y + 10 == settings.keys.Y:
+                if not "keys" in self.INVENTORY:
+                    self.INVENTORY.append("keys")
+                    
+            if self.X - 10 <= settings.keys.X and self.Y - 10 == settings.keys.Y:
+                if not "keys" in self.INVENTORY:
+                    self.INVENTORY.append("keys")
 
         # if siren.ENEMY_MOVE == True:
         #     self.col_right(siren_list)
@@ -123,7 +135,7 @@ class Player(object.Object):
             npc_object.SHOW_DIALOG = False
 
 
-    def exit(self, area, win):
+    def exit(self, area, enemy, win):
         for door in area.list_door_right:
             if self.RECT.x >= door.RECT.x and self.RECT.y >= door.RECT.y:
                 area.list_block_area.clear()
@@ -140,11 +152,13 @@ class Player(object.Object):
                 area.list_ladder.clear()
                 area.list_bed.clear()
                 area.list_siren.clear()
+                area.list_vending_machine.clear()
                 
-                self.CURRENT_LEVEL += 1
+                self.CURRENT_LEVEL += 1 
 
                 if self.CURRENT_LEVEL == 1:
                     settings.scene = "loc2"
+                    enemy.turret.shoot(win, "L", 200, width=80, height=25)
                 if self.CURRENT_LEVEL == 2:
                     settings.scene = "loc3"
 
@@ -164,14 +178,21 @@ class Player(object.Object):
                 area.list_bed.clear()
                 area.list_npc.clear()
                 area.list_siren.clear()
+                area.list_vending_machine.clear()
                 
                 self.CURRENT_LEVEL -= 1
 
-                if self.CURRENT_LEVEL == 1:
+                if self.CURRENT_LEVEL == 0:
                     settings.bg1.blit_sprite(win)
                     settings.scene = "loc1"
+                    self.X = 720
+                    self.RECT.x = 720
+                    self.Y = 720
+                    self.RECT.y = 720
+                    enemy.turret.shoot(win, "R", 200, width=80, height=25)
                 if self.CURRENT_LEVEL == 1:
                     settings.scene = "loc2"
+                    enemy.turret.shoot(win, "L", 200, width=80, height=25)
                 if self.CURRENT_LEVEL == 2:
                     settings.scene = "loc3"
 

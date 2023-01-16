@@ -3,7 +3,7 @@ import modules.settings as settings
 from modules.player import hero
 from modules.levels import *
 from modules.enemy import turret, siren
-from modules.npc import prisoner, illya
+from modules.npc import prisoner, illya, security_guy
 
 class Area(settings.Settings):
     def __init__(self, **kwargs):
@@ -27,10 +27,11 @@ list_npc = []
 list_lever = []
 list_lever.append(settings.lever)
 list_lever.append(settings.lever2)
-list_lever.append(settings.lever3)
 
 list_bed = []
 list_bed.append(settings.bed)
+
+list_vending_machine = []
 
 list_siren = []
 
@@ -111,10 +112,18 @@ def create_area():
             if column == "i":
                 illya.X = x
                 illya.RECT.x = x
-                illya.Y = y + 4
+                illya.Y = y + 4 
                 illya.RECT.y = y + 4
 
                 list_npc.append(illya)
+            
+            if column == "2":
+                security_guy.X = x
+                security_guy.RECT.x = x
+                security_guy.Y = y + 4
+                security_guy.RECT.y = y + 4
+
+                list_npc.append(security_guy)
 
             if column == "d":   
                 trapdoor = Area(
@@ -170,7 +179,14 @@ def create_area():
                 crate.gravity(list_block_area)
 
                 list_block_area.append(crate)
-                
+            
+            if column == "v":
+                settings.vending_machine.X = x
+                settings.vending_machine.RECT.x = x
+                settings.vending_machine.Y = y + 4
+                settings.vending_machine.RECT.y = y + 4
+
+                list_vending_machine.append(settings.vending_machine)
             x += block_width
         y += block_height
         x = 0
