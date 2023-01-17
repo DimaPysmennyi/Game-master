@@ -6,6 +6,9 @@ class NPC(object.Object):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.JOKE = None
+        self.SREZ = 0
+        self.CURRENT_STR = 0
+        self.DIALOG_Y = 675
         
     def dialog(self, win, head1, head2):
         dialog_win = object.Object(
@@ -25,10 +28,11 @@ class NPC(object.Object):
 
 
     def show_text(self, text, win, size, x, y):
-        font = pygame.font.SysFont('fonts\Digital_Thin.ttf', size)
+        font = pygame.font.SysFont('fonts\\3572.ttf', size)
         text = font.render(str(text), 1, (255,255,255), None)
         win.blit(text, (x, y))
 
+    
 prisoner = NPC(
     width = 45,
     height = 55,

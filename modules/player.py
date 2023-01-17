@@ -209,7 +209,7 @@ class Player(object.Object):
             color = "yellow"
         )
         bg_health.blit_sprite(win)
-        font = pygame.font.SysFont('fonts\Digital_Thin.ttf', 100)
+        font = pygame.font.SysFont('fonts\\3572.ttf', 100)
         text = font.render(str(self.HEALTH), 1, (225,22,25), None)
         win.blit(text, (70, 10))
         heart_sprite = settings.Settings(

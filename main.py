@@ -13,13 +13,13 @@ pygame.init()
 
 win_width = 840
 win_height = 840
+srez = 0
 
 
 win = pygame.display.set_mode((win_width, win_height))
 pygame.display.set_caption("Game")
 
 def run_game():
-
     game = True
     clock = pygame.time.Clock()    
 
@@ -115,30 +115,26 @@ def run_game():
 
             if prisoner.SHOW_DIALOG == True:
                 prisoner.dialog(win, settings.player_head, settings.prisoner_head)
-                srez = 0
-                for symbol in range(len(dialogs.prisoner_dialog[0])):
-                    srez += 1
-                    security_guy.show_text(dialogs.prisoner_dialog[0][0:srez], win, 35, 55, 675)
-                    prisoner.SPEED_ANIMATION += 1
-                    if symbol == dialogs.prisoner_dialog[0][-1]:
-                        srez = 0
+                if prisoner.CURRENT_STR >= 0:
+                    prisoner.SREZ += 1
+                    security_guy.show_text(dialogs.prisoner_dialog[prisoner.CURRENT_STR][0:prisoner.SREZ], win, 35, 55, 675)
+                if prisoner.CURRENT_STR >= 1:
+                    prisoner.SREZ += 1
+                    security_guy.show_text(dialogs.prisoner_dialog[prisoner.CURRENT_STR][0:prisoner.SREZ], win, 35, 55, 705)
+                if prisoner.CURRENT_STR >= 2:
+                    prisoner.SREZ += 1
+                    security_guy.show_text(dialogs.prisoner_dialog[prisoner.CURRENT_STR][0:prisoner.SREZ], win, 35, 55, 735)
+                if prisoner.CURRENT_STR >= 3:
+                    prisoner.SREZ += 1
+                    security_guy.show_text(dialogs.prisoner_dialog[prisoner.CURRENT_STR][0:prisoner.SREZ], win, 35, 55, 765)    
 
+                if prisoner.SREZ > len(dialogs.prisoner_dialog[prisoner.CURRENT_STR]):
+                    # prisoner.DIALOG_Y += 30
+                    prisoner.CURRENT_STR += 1
+                    prisoner.SREZ = 0
+                if prisoner.CURRENT_STR > 4:
+                    prisoner.CURRENT_STR = 4
 
-                for symbol in range(len(dialogs.prisoner_dialog[1])):
-                    srez += 1
-                    prisoner.show_text(dialogs.prisoner_dialog[1][0:srez], win, 35, 55, 705)
-                    if symbol == dialogs.prisoner_dialog[1][-1]:
-                        srez = 0
-                for symbol in range(len(dialogs.prisoner_dialog[2])):
-                    srez += 1
-                    prisoner.show_text(dialogs.prisoner_dialog[2][0:srez], win, 35, 55, 735)
-                    if symbol == dialogs.prisoner_dialog[2][-1]:
-                        srez = 0
-                for symbol in range(len(dialogs.prisoner_dialog[3])):
-                    srez += 1
-                    prisoner.show_text(dialogs.prisoner_dialog[3][0:srez], win, 35, 55, 765)
-                    if symbol == dialogs.prisoner_dialog[3][-1]:
-                        srez = 0
                 # prisoner.show_text("втікти звідси, тобі доведеться знайти космічний корабель.", win, 35, 55, 765)
                 
                 # if prisoner.SPEED_ANIMATION >= 300:
