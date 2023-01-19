@@ -22,6 +22,8 @@ pygame.display.set_caption("Game")
 def run_game():
     game = True
     clock = pygame.time.Clock()    
+    refuse_srez = 0
+    refuse_str = "Ну і будь ласка!"
 
     while game:
         win.fill((0,0,0))
@@ -116,24 +118,38 @@ def run_game():
             if prisoner.SHOW_DIALOG == True:
                 prisoner.dialog(win, settings.player_head, settings.prisoner_head)
                 if prisoner.CURRENT_STR >= 0:
-                    prisoner.SREZ += 1
-                    security_guy.show_text(dialogs.prisoner_dialog[prisoner.CURRENT_STR][0:prisoner.SREZ], win, 35, 55, 675)
+                    dialogs.prisoner_dialog[0][1] += 1
+                    prisoner.show_text(dialogs.prisoner_dialog[0][0][0:dialogs.prisoner_dialog[0][1]], win, 35, 55, 675)
                 if prisoner.CURRENT_STR >= 1:
-                    prisoner.SREZ += 1
-                    security_guy.show_text(dialogs.prisoner_dialog[prisoner.CURRENT_STR][0:prisoner.SREZ], win, 35, 55, 705)
+                    dialogs.prisoner_dialog[1][1] += 1
+                    prisoner.show_text(dialogs.prisoner_dialog[1][0][0:dialogs.prisoner_dialog[1][1]], win, 35, 55, 705)
                 if prisoner.CURRENT_STR >= 2:
-                    prisoner.SREZ += 1
-                    security_guy.show_text(dialogs.prisoner_dialog[prisoner.CURRENT_STR][0:prisoner.SREZ], win, 35, 55, 735)
+                    dialogs.prisoner_dialog[2][1] += 1
+                    prisoner.show_text(dialogs.prisoner_dialog[2][0][0:dialogs.prisoner_dialog[2][1]], win, 35, 55, 735)
                 if prisoner.CURRENT_STR >= 3:
-                    prisoner.SREZ += 1
-                    security_guy.show_text(dialogs.prisoner_dialog[prisoner.CURRENT_STR][0:prisoner.SREZ], win, 35, 55, 765)    
+                    dialogs.prisoner_dialog[3][1] += 1
+                    prisoner.show_text(dialogs.prisoner_dialog[3][0][0:dialogs.prisoner_dialog[3][1]], win, 35, 55, 765)   
 
-                if prisoner.SREZ > len(dialogs.prisoner_dialog[prisoner.CURRENT_STR]):
+                if dialogs.prisoner_dialog[0][1] > len(dialogs.prisoner_dialog[0][0]):
                     # prisoner.DIALOG_Y += 30
-                    prisoner.CURRENT_STR += 1
-                    prisoner.SREZ = 0
-                if prisoner.CURRENT_STR > 4:
-                    prisoner.CURRENT_STR = 4
+                    if prisoner.CURRENT_STR < 1: 
+                        prisoner.CURRENT_STR += 1
+                if dialogs.prisoner_dialog[1][1] > len(dialogs.prisoner_dialog[1][0]):
+                    # prisoner.DIALOG_Y += 30
+                    if prisoner.CURRENT_STR < 2: 
+                        prisoner.CURRENT_STR += 1
+                if dialogs.prisoner_dialog[2][1] > len(dialogs.prisoner_dialog[2][0]):
+                    # prisoner.DIALOG_Y += 30
+                    if prisoner.CURRENT_STR < 3: 
+                        prisoner.CURRENT_STR += 1
+
+                if dialogs.prisoner_dialog[3][1] > len(dialogs.prisoner_dialog[3][0]):
+                    # prisoner.DIALOG_Y += 30
+                    if prisoner.CURRENT_STR < 4: 
+                        prisoner.CURRENT_STR += 1   
+
+                # if prisoner.CURRENT_STR > 4:
+                    # prisoner.CURRENT_STR = 4
 
                 # prisoner.show_text("втікти звідси, тобі доведеться знайти космічний корабель.", win, 35, 55, 765)
                 
@@ -206,11 +222,32 @@ def run_game():
                 if illya.JOKE == None:
                     illya.dialog(win, settings.player_head, settings.illya_head)
                     # if illya.SPEED_ANIMATION < 300:
-                    illya.show_text("Здоров. Мене звати Ілля та я дуже серйозний трикутник.", win, 35, 55, 675)
-                    illya.show_text("Але якщо забажаєш, я можу розповісти тобі один жарт.", win, 35, 55, 705)
-                    illya.show_text("Хочеш?", win, 35, 55, 735)
-                    settings.yes_button.blit_sprite(win)
-                    settings.no_button.blit_sprite(win)
+                    if illya.CURRENT_STR >= 0:
+                        dialogs.illya_dialog[0][1] += 1
+                        illya.show_text(dialogs.illya_dialog[0][0][0:dialogs.illya_dialog[0][1]], win, 35, 55, 675)
+                    if illya.CURRENT_STR >= 1:
+                        dialogs.illya_dialog[1][1] += 1
+                        illya.show_text(dialogs.illya_dialog[1][0][0:dialogs.illya_dialog[1][1]], win, 35, 55, 705)
+                    if illya.CURRENT_STR >= 2:
+                        dialogs.illya_dialog[2][1] += 1
+                        illya.show_text(dialogs.illya_dialog[2][0][0:dialogs.illya_dialog[2][1]], win, 35, 55, 735)  
+                        settings.yes_button.blit_sprite(win)
+                        settings.no_button.blit_sprite(win) 
+
+                    if dialogs.illya_dialog[0][1] > len(dialogs.illya_dialog[0][0]):
+                        # prisoner.DIALOG_Y += 30
+                        if illya.CURRENT_STR < 1: 
+                            illya.CURRENT_STR += 1
+                    if dialogs.illya_dialog[1][1] > len(dialogs.illya_dialog[1][0]):
+                        # prisoner.DIALOG_Y += 30
+                        if illya.CURRENT_STR < 2: 
+                            illya.CURRENT_STR += 1
+                    if dialogs.illya_dialog[2][1] > len(dialogs.illya_dialog[2][0]):
+                        # prisoner.DIALOG_Y += 30
+                        if illya.CURRENT_STR < 3: 
+                            illya.CURRENT_STR += 1
+
+                        
                     mouse = pygame.mouse.get_pos()
                     mouse_pressed = pygame.mouse.get_pressed()
 
@@ -218,7 +255,7 @@ def run_game():
                         if mouse[0] >= settings.yes_button.X and mouse[0] <= settings.yes_button.X + settings.yes_button.WIDTH:
                             if mouse[1] >= settings.yes_button.Y and mouse[1] <= settings.yes_button.Y + settings.yes_button.HEIGHT:
                                 illya.JOKE = "tell"
-                                index_joke = random.randint(0, 4)
+                                index_joke = random.randint(0, 5)
 
                         if mouse[0] >= settings.no_button.X and mouse[0] <= settings.no_button.X + settings.no_button.WIDTH:
                             if mouse[1] >= settings.no_button.Y and mouse[1] <= settings.no_button.Y + settings.no_button.HEIGHT:
@@ -231,7 +268,10 @@ def run_game():
 
                 if illya.JOKE == "refuse":
                     illya.dialog(win, settings.player_head, settings.illya_head)
-                    illya.show_text("Ну і будь ласка!", win, 35, 55, 675)
+                    
+                    if illya.CURRENT_STR >= 3:
+                        refuse_srez += 1
+                        illya.show_text(refuse_str[0:refuse_srez], win, 35, 55, 675)
                     # illya.SPEED_ANIMATION += 1
 
             if hero.HEALTH == 0:
@@ -251,7 +291,7 @@ def run_game():
                 door.blit_sprite(win)
 
             for npc in area.list_npc:
-                npc.draw(win)
+                npc.blit_sprite(win)
 
             for vm in area.list_vending_machine:
                 vm.blit_sprite(win)
@@ -265,24 +305,29 @@ def run_game():
             if security_guy.SHOW_DIALOG == True:
                 security_guy.dialog(win, settings.player_head, settings.security_guy_head)
                 if settings.vending_machine_pressed == False:
-                    srez = 0
-                    for symbol in range(len(dialogs.security_guy_dialog[0])):
-                        srez += 1
-                        security_guy.show_text(dialogs.security_guy_dialog[0][0:srez], win, 35, 55, 675)
-                        if symbol == dialogs.security_guy_dialog[0][-1]:
-                            srez = 0
+                    if security_guy.CURRENT_STR >= 0:
+                        dialogs.security_guy_dialog[0][1] += 1
+                        security_guy.show_text(dialogs.security_guy_dialog[0][0][0:dialogs.security_guy_dialog[0][1]], win, 35, 55, 675)
+                    if security_guy.CURRENT_STR >= 1:
+                        dialogs.security_guy_dialog[1][1] += 1
+                        security_guy.show_text(dialogs.security_guy_dialog[1][0][0:dialogs.security_guy_dialog[1][1]], win, 35, 55, 705)
+                    if security_guy.CURRENT_STR >= 2:
+                        dialogs.security_guy_dialog[2][1] += 1
+                        security_guy.show_text(dialogs.security_guy_dialog[2][0][0:dialogs.security_guy_dialog[2][1]], win, 35, 55, 735)  
 
-                    for symbol in range(len(dialogs.security_guy_dialog[1])):
-                        srez += 1
-                        security_guy.show_text(dialogs.security_guy_dialog[1][0:srez], win, 35, 55, 705)
-                        if symbol == dialogs.security_guy_dialog[1][-1]:
-                            srez = 0
-                    
-                    for symbol in range(len(dialogs.security_guy_dialog[2])):
-                        srez += 1
-                        security_guy.show_text(dialogs.security_guy_dialog[2][0:srez], win, 35, 55, 735)
-                        if symbol == dialogs.security_guy_dialog[2][-1]:
-                            srez = 0
+                    if dialogs.security_guy_dialog[0][1] > len(dialogs.security_guy_dialog[0][0]):
+                        # prisoner.DIALOG_Y += 30
+                        if security_guy.CURRENT_STR < 1: 
+                            security_guy.CURRENT_STR += 1
+                    if dialogs.security_guy_dialog[1][1] > len(dialogs.security_guy_dialog[1][0]):
+                        # prisoner.DIALOG_Y += 30
+                        if security_guy.CURRENT_STR < 2: 
+                            security_guy.CURRENT_STR += 1
+                    if dialogs.security_guy_dialog[2][1] > len(dialogs.security_guy_dialog[2][0]):
+                        # prisoner.DIALOG_Y += 30
+                        if security_guy.CURRENT_STR < 3: 
+                            security_guy.CURRENT_STR += 1
+
 
                 # security_guy.show_text("Лише з нею ти зможеш увімкнути ліфт. Я знаю, що вона є в", win, 35, 55, 705)
                 # security_guy.show_text("цьому автоматі, зверху від мене.", win, 35, 55, 735)

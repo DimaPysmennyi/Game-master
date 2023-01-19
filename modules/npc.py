@@ -28,7 +28,7 @@ class NPC(object.Object):
 
 
     def show_text(self, text, win, size, x, y):
-        font = pygame.font.SysFont('fonts\\3572.ttf', size)
+        font = pygame.font.SysFont('fonts\\PixelFont.ttf', size)
         text = font.render(str(text), 1, (255,255,255), None)
         win.blit(text, (x, y))
 
