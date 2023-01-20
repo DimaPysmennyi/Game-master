@@ -44,32 +44,7 @@ class Settings:
         pygame.draw.rect(win, self.COLOR, self.RECT)
         
 
-button_start = Settings(
-    width = 420,
-    height = 200,
-    x = 210,
-    y = 300,
-    name_img="images\\buttons\\button_start.png",
-    color = (0, 0, 0)
-)
 
-
-button_exit = Settings(
-    width = 420,
-    height = 200,
-    x = 210,
-    y = 520,
-    name_img="images\\buttons\\button_exit.png",
-    color = (0, 0, 0)
-)
-button = Settings(
-    width = 420,
-    height = 200,
-    x = 210,
-    y = 420,
-    name_img="images\\buttons\\button_restart.png",
-    color = (0, 0, 0)
-)
 
 bg1 = Settings(
     width = 720,
@@ -183,32 +158,7 @@ security_guy_head = Settings(
     color = "black"
 )
 
-yes_button = Settings(
-    width = 100,
-    height = 50,
-    x = 610,
-    y = 750,
-    name_img = "images\\npc\yes.png",
-    color = "black"
-)
 
-no_button = Settings(
-    width = 100,
-    height = 50,
-    x = 500,
-    y = 750,
-    name_img = "images\\npc\\no.png",
-    color = "black"
-)
-
-skip_button = Settings(
-    width = 100,
-    height = 50,
-    x = 740,
-    y = 480, 
-    name_img = "images\\npc\yes.png",
-    color = "black"
-)
 
 # слабо слабо слабо
 bed = Settings(
@@ -246,6 +196,15 @@ vending_machine = Settings(
     name_img="images\gas.png",
     color = (0, 0, 0)
 )
+             
+vending_machine_inside = Settings(
+    width = 840,
+    height = 840,
+    x = 0,
+    y = 0,
+    name_img="images\\vending_machine.png",
+    color = (0, 0, 0)
+)
 
 keys = Settings(
     width = 60,
@@ -256,14 +215,7 @@ keys = Settings(
     color = (0, 0, 0)
 )
 
-back_button = Settings(
-    width = 100,
-    height = 50,
-    x = 0,
-    y = 0, 
-    name_img = "images\\npc\yes.png",
-    color = "black"
-)
+
 
 cutscene_speed = 0
 vending_machine_pressed = False

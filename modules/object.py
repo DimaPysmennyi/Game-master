@@ -2,7 +2,6 @@ import pygame
 import modules.settings as settings
 
 
-
 class Object(settings.Settings):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

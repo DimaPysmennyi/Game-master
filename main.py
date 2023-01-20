@@ -8,6 +8,7 @@ import modules.vending_machine as mvm
 import modules.jokes as jokes
 import modules.dialogs as dialogs
 import random
+import modules.buttons as btns
 
 pygame.init()
 
@@ -32,20 +33,15 @@ def run_game():
                 game = False
         if settings.scene == "menu":
             settings.bg_menu.blit_sprite(win)
-            settings.button_start.blit_sprite(win)
-            settings.button_exit.blit_sprite(win)
-            mouse = pygame.mouse.get_pos()
-            mouse_pressed = pygame.mouse.get_pressed()
+            btns.button_start.blit_sprite(win)
+            btns.button_exit.blit_sprite(win)
 
-            if mouse_pressed[0]:
-                if mouse[0] >= settings.button_start.X and mouse[0] <= settings.button_start.X + settings.button_start.WIDTH:
-                    if mouse[1] >= settings.button_start.Y and mouse[1] <= settings.button_start.Y + settings.button_start.HEIGHT:
-                        settings.scene = "cutscene1"
+            if btns.button_start.button_pressing() == True:
+                settings.scene = "cutscene1"
 
-                    if mouse[0] >= settings.button_exit.X and mouse[0] <= settings.button_exit.X + settings.button_exit.WIDTH:
-                        if mouse[1] >= settings.button_exit.Y and mouse[1] <= settings.button_exit.Y + settings.button_exit.HEIGHT:
-                            game = False
-            # if pygame.MOUSEBUTTONDOWN and :
+            if btns.button_exit.button_pressing() == True:
+                game = False
+            # if pame.MOUSEBUTTONDOWN and :
             # if pressing[pygame.K_SPACE]:
             #     settings.scene = "loc1"
             # if pygame.rect.collidepoint(settings.button):
@@ -231,8 +227,8 @@ def run_game():
                     if illya.CURRENT_STR >= 2:
                         dialogs.illya_dialog[2][1] += 1
                         illya.show_text(dialogs.illya_dialog[2][0][0:dialogs.illya_dialog[2][1]], win, 35, 55, 735)  
-                        settings.yes_button.blit_sprite(win)
-                        settings.no_button.blit_sprite(win) 
+                        btns.no_button.blit_sprite(win)
+                        btns.yes_button.blit_sprite(win) 
 
                     if dialogs.illya_dialog[0][1] > len(dialogs.illya_dialog[0][0]):
                         # prisoner.DIALOG_Y += 30
@@ -248,18 +244,12 @@ def run_game():
                             illya.CURRENT_STR += 1
 
                         
-                    mouse = pygame.mouse.get_pos()
-                    mouse_pressed = pygame.mouse.get_pressed()
+                        if btns.yes_button.button_pressing() == True:
+                            illya.JOKE = "tell"
+                            index_joke = random.randint(0, 5)
 
-                    if mouse_pressed[0]:
-                        if mouse[0] >= settings.yes_button.X and mouse[0] <= settings.yes_button.X + settings.yes_button.WIDTH:
-                            if mouse[1] >= settings.yes_button.Y and mouse[1] <= settings.yes_button.Y + settings.yes_button.HEIGHT:
-                                illya.JOKE = "tell"
-                                index_joke = random.randint(0, 5)
-
-                        if mouse[0] >= settings.no_button.X and mouse[0] <= settings.no_button.X + settings.no_button.WIDTH:
-                            if mouse[1] >= settings.no_button.Y and mouse[1] <= settings.no_button.Y + settings.no_button.HEIGHT:
-                                illya.JOKE = "refuse"
+                        if btns.no_button.button_pressing() == True:
+                            illya.JOKE = "refuse"
 
                 if illya.JOKE == "tell":
                     illya.dialog(win, settings.player_head, settings.illya_head)
@@ -366,13 +356,9 @@ def run_game():
                         hero.INVENTORY.append("coin")
         
         if settings.scene == "vending machine":
-            settings.back_button.blit_sprite(win)
-            mouse = pygame.mouse.get_pos()
-            mouse_pressed = pygame.mouse.get_pressed()
-            if mouse_pressed[0]:
-                if mouse[0] >= settings.back_button.X and mouse[0] <= settings.back_button.X + settings.back_button.WIDTH:
-                    if mouse[1] >= settings.back_button.Y and mouse[1] <= settings.back_button.Y + settings.back_button.HEIGHT:
-                        settings.scene = "loc3"
+            btns.back_button.blit_sprite(win)
+            if btns.back_button.button_pressing() == True:
+                    settings.scene = "loc3"
 
             if "coin" in hero.INVENTORY:
                 mvm.vending_machine(win)
@@ -391,35 +377,33 @@ def run_game():
             mouse = pygame.mouse.get_pos()
             mouse_pressed = pygame.mouse.get_pressed()
 
-            settings.button.blit_sprite(win)
-            if mouse_pressed[0]:
-                if mouse[0] >= settings.button.X and mouse[0] <= settings.button.X + settings.button.WIDTH:
-                    if mouse[1] >= settings.button.Y and mouse[1] <= settings.button.Y + settings.button.HEIGHT:
-                        hero.HEALTH = 3
-                        hero.X = 120
-                        hero.Y = 184
-                        hero.RECT.x = 120
-                        hero.RECT.y = 184
-                        settings.bg1.blit_sprite(win)
-                        for trapdoor in area.list_trapdoor:
-                            trapdoor.X = 540
-                            trapdoor.Y = 240
-                            trapdoor.RECT.x = 540
-                            trapdoor.RECT.y = 240
-                        settings.lever.NAME_IMG = "images\lever_off.png"
-                        settings.laser.X = 60
-                        settings.laser.Y = 480
-                        settings.laser.RECT.x = 60
-                        settings.laser.RECT.y = 480
-                        prisoner.SPEED_ANIMATION = 0
-                        for ladder in area.list_ladder:
-                            ladder.blit_sprite(win)
-                        settings.trapdoor_pressed = False
-                        settings.laser_pressed = False
-                        settings.lever.blit_sprite(win)
-                        settings.lever2.blit_sprite(win)
-                        hero.CURRENT_LEVEL = 0
-                        settings.scene = "loc1"
+            btns.button_restart.blit_sprite(win)
+            if btns.button_restart.button_pressing() == True:
+                hero.HEALTH = 3
+                hero.X = 120
+                hero.Y = 184
+                hero.RECT.x = 120
+                hero.RECT.y = 184
+                settings.bg1.blit_sprite(win)
+                for trapdoor in area.list_trapdoor:
+                    trapdoor.X = 540
+                    trapdoor.Y = 240
+                    trapdoor.RECT.x = 540
+                    trapdoor.RECT.y = 240
+                settings.lever.NAME_IMG = "images\lever_off.png"
+                settings.laser.X = 60
+                settings.laser.Y = 480
+                settings.laser.RECT.x = 60
+                settings.laser.RECT.y = 480
+                prisoner.SPEED_ANIMATION = 0
+                for ladder in area.list_ladder:
+                    ladder.blit_sprite(win)
+                settings.trapdoor_pressed = False
+                settings.laser_pressed = False
+                settings.lever.blit_sprite(win)
+                settings.lever2.blit_sprite(win)
+                hero.CURRENT_LEVEL = 0
+                settings.scene = "loc1"
 
 
 
