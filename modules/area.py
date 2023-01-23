@@ -41,6 +41,8 @@ list_laser = []
 
 list_ladder = []
 
+list_computer = []
+
 def create_area():
     x = 0
     y = 0
@@ -187,9 +189,17 @@ def create_area():
                 settings.vending_machine.RECT.y = y + 4
 
                 list_vending_machine.append(settings.vending_machine)
+            
+            if column == "m":
+                settings.computer.X = x
+                settings.computer.RECT.x = x
+                settings.computer.Y = y + 4
+                settings.computer.RECT.y = y + 4
+
+                list_computer.append(settings.computer)
             x += block_width
         y += block_height
         x = 0
-
+        
 # print(level1)
 create_area()

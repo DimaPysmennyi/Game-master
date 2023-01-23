@@ -91,6 +91,15 @@ cutscene = Settings(
     color = "gray"
 )
 
+win98 = Settings(
+    width = 840,
+    height = 840,
+    x = 0,
+    y = 0,
+    name_img = "images\\win98.png",
+    color = "gray"
+)
+
 lever = Settings(
     width= 30,
     height = 30,
@@ -215,7 +224,51 @@ keys = Settings(
     color = (0, 0, 0)
 )
 
+screwdriver = Settings(
+    width = 100,
+    height= 150,
+    x = 450,
+    y = 350,
+    name_img="images\screwdriver.png",
+    color=(0,0,0)
+)
 
+computer = Settings(
+    width = 60,
+    height = 60,
+    x = 0,
+    y = 0,
+    name_img="images\pc.png",
+    color=(255,255,255)
+)
+           
+password1 = Settings(
+    width=500,
+    height=200,
+    x=150,
+    y = 220,
+    name_img="images\\password1.png",
+    color = "red"
+)
+
+wires = Settings(
+    width=840,
+    height=840,
+    x=0,
+    y=0,
+    name_img="images\wires.png",
+    color="blue"
+)
+
+elec = Settings(
+    width=30,
+    height=30,
+    x=400,
+    y=724,
+    name_img="images\lever.png",
+    color=(0,0,0)
+    
+)
 
 cutscene_speed = 0
 vending_machine_pressed = False

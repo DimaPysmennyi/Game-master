@@ -30,6 +30,23 @@ level1 = [
     list("bbbbbbbbbbbbbb")
 ]
 
+level4 = [
+    list("bbbbbbbbbbbbbb"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("lp00000000000r"),
+    list("bbbbbbbbbbbbbb")
+]
+
 level2 = [
     list("bbbbbbbbbbbbbb"),
     list("b000000000000b"),
@@ -61,6 +78,6 @@ level3 = [
     list("b00000000b000b"),
     list("b00000000b00vb"),
     list("b00000000b0bbb"),
-    list("b000000000002b"),
+    list("bm00000000002b"),
     list("bbbbbbbbbbbbbb")
 ]

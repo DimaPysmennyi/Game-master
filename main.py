@@ -9,6 +9,8 @@ import modules.jokes as jokes
 import modules.dialogs as dialogs
 import random
 import modules.buttons as btns
+import modules.minigame1 as minigame1
+import modules.wires as wires
 
 pygame.init()
 
@@ -21,13 +23,17 @@ win = pygame.display.set_mode((win_width, win_height))
 pygame.display.set_caption("Game")
 
 def run_game():
+    
     game = True
     clock = pygame.time.Clock()    
     refuse_srez = 0
     refuse_str = "Ну і будь ласка!"
 
     while game:
+        mouse = pygame.mouse.get_pos()
+        print(hero.X, hero.Y)
         win.fill((0,0,0))
+        # print(mouse)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game = False
@@ -197,6 +203,7 @@ def run_game():
                 siren.enemy_move(area)
 
 
+
             print(hero.INVENTORY)
             if not "keys" in hero.INVENTORY:
                 settings.keys.blit_sprite(win)
@@ -285,7 +292,11 @@ def run_game():
 
             for vm in area.list_vending_machine:
                 vm.blit_sprite(win)
+            
+            for computer in area.list_computer:
+                computer.blit_sprite(win)
 
+            settings.elec.draw(win)
             hero.move(area.list_block_area)
             hero.show_dialog(security_guy)
             hero.exit(area, enemy, win)
@@ -293,7 +304,9 @@ def run_game():
             hero.health_font(win)
 
             if security_guy.SHOW_DIALOG == True:
+                print(security_guy.CURRENT_STR)
                 security_guy.dialog(win, settings.player_head, settings.security_guy_head)
+                print(security_guy.CURRENT_STR)
                 if settings.vending_machine_pressed == False:
                     if security_guy.CURRENT_STR >= 0:
                         dialogs.security_guy_dialog[0][1] += 1
@@ -326,47 +339,70 @@ def run_game():
                     security_guy.dialog(win, settings.player_head, settings.security_guy_head)
                     if not "keys" in hero.INVENTORY:
                         if settings.vending_machine_pressed == False:
-                            srez = 0
-                            for symbol in range(len(dialogs.security_guy_dialog[3])):
-                                srez += 1
-                                security_guy.show_text(dialogs.security_guy_dialog[3][0:srez], win, 35, 55, 675)
-                                if symbol == dialogs.security_guy_dialog[3][-1]:
-                                    srez = 0
+                            if security_guy.CURRENT_STR >= 3:
+                                dialogs.security_guy_dialog[3][1] += 1
+                                security_guy.show_text(dialogs.security_guy_dialog[3][0][0:dialogs.security_guy_dialog[3][1]], win, 35, 55, 675)
+                            if security_guy.CURRENT_STR >= 4:
+                                dialogs.security_guy_dialog[4][1] += 1
+                                security_guy.show_text(dialogs.security_guy_dialog[4][0][0:dialogs.security_guy_dialog[4][1]], win, 35, 55, 705)
+                            if security_guy.CURRENT_STR >= 5:
+                                dialogs.security_guy_dialog[5][1] += 1
+                                security_guy.show_text(dialogs.security_guy_dialog[5][0][0:dialogs.security_guy_dialog[5][1]], win, 35, 55, 735)  
 
-                            for symbol in range(len(dialogs.security_guy_dialog[4])):
-                                srez += 1
-                                security_guy.show_text(dialogs.security_guy_dialog[4][0:srez], win, 35, 55, 705)
-                                if symbol == dialogs.security_guy_dialog[4][-1]:
-                                    srez = 0
-
-                            for symbol in range(len(dialogs.security_guy_dialog[5])):
-                                srez += 1
-                                security_guy.show_text(dialogs.security_guy_dialog[5][0:srez], win, 35, 55, 735)
-                                if symbol == dialogs.security_guy_dialog[5][-1]:
-                                    srez = 0
+                            if dialogs.security_guy_dialog[3][1] > len(dialogs.security_guy_dialog[3][0]):
+                                # prisoner.DIALOG_Y += 30
+                                if security_guy.CURRENT_STR < 4: 
+                                    security_guy.CURRENT_STR += 1
+                            if dialogs.security_guy_dialog[4][1] > len(dialogs.security_guy_dialog[4][0]):
+                                # prisoner.DIALOG_Y += 30
+                                if security_guy.CURRENT_STR < 5: 
+                                    security_guy.CURRENT_STR += 1
+                            if dialogs.security_guy_dialog[5][1] > len(dialogs.security_guy_dialog[5][0]):
+                                # prisoner.DIALOG_Y += 30
+                                if security_guy.CURRENT_STR < 6: 
+                                    security_guy.CURRENT_STR += 1
 
                     if "keys" in hero.INVENTORY:
                         hero.INVENTORY.remove("keys")
-                        srez = 0
-                        for symbol in range(len(dialogs.security_guy_dialog[6])):
-                            srez += 1
-                            security_guy.show_text(dialogs.security_guy_dialog[6][0:srez], win, 35, 55, 735)
-                            if symbol == dialogs.security_guy_dialog[6][-1]:
-                                srez = 0
-                        hero.INVENTORY.append("coin")
-        
+                        dialogs.security_guy_dialog[6][1] += 1
+                        security_guy.show_text(dialogs.security_guy_dialog[6][0][0:dialogs.security_guy_dialog[6][1]], win, 35, 55, 735)  
+                        if not "coin" in hero.INVENTORY:        
+                            hero.INVENTORY.append("coin")
+            if security_guy.SHOW_DIALOG == False:
+                security_guy.CURRENT_STR = 0
+
+        if settings.scene == "wires":
+            wires.wires(win)
+
         if settings.scene == "vending machine":
-            btns.back_button.blit_sprite(win)
+            
             if btns.back_button.button_pressing() == True:
-                    settings.scene = "loc3"
+                settings.scene = "loc3"
 
             if "coin" in hero.INVENTORY:
                 mvm.vending_machine(win)
+                for button in btns.button_list:
+                    button.blit_sprite(win)
             else:
                 font = pygame.font.SysFont('fonts\Digital_Thin.ttf', 40)
                 text1 = font.render(str("Необхідно внести монету!"), 1, (255,255,255), (215,0,0))
                 win.blit(text1, (200, 420))
+            
+            btns.back_button.blit_sprite(win)
 
+        if wires.lights_on == True:
+            if settings.scene == "computer":
+                settings.win98.blit_sprite(win)
+                btns.button_minigame1.blit_sprite(win)
+                if btns.button_minigame1.button_pressing() == True:
+                    settings.scene = "minigame1"
+
+        if settings.scene == "minigame1":
+            font = pygame.font.SysFont('fonts\\PixelFont.ttf', 100)
+            text = font.render("?+?=15", 1, (255,255,255), None)
+            win.blit(text, (300, 10))
+            minigame1.minigame1(win)
+            
 
         if settings.scene == "game_over":
             win.fill((168, 0, 0))
@@ -374,36 +410,33 @@ def run_game():
             # pygame.mixer.music.play(-1)
             settings.bg_death.blit_sprite(win)
 
-            mouse = pygame.mouse.get_pos()
-            mouse_pressed = pygame.mouse.get_pressed()
-
-            btns.button_restart.blit_sprite(win)
-            if btns.button_restart.button_pressing() == True:
-                hero.HEALTH = 3
-                hero.X = 120
-                hero.Y = 184
-                hero.RECT.x = 120
-                hero.RECT.y = 184
-                settings.bg1.blit_sprite(win)
-                for trapdoor in area.list_trapdoor:
-                    trapdoor.X = 540
-                    trapdoor.Y = 240
-                    trapdoor.RECT.x = 540
-                    trapdoor.RECT.y = 240
-                settings.lever.NAME_IMG = "images\lever_off.png"
-                settings.laser.X = 60
-                settings.laser.Y = 480
-                settings.laser.RECT.x = 60
-                settings.laser.RECT.y = 480
-                prisoner.SPEED_ANIMATION = 0
-                for ladder in area.list_ladder:
-                    ladder.blit_sprite(win)
-                settings.trapdoor_pressed = False
-                settings.laser_pressed = False
-                settings.lever.blit_sprite(win)
-                settings.lever2.blit_sprite(win)
-                hero.CURRENT_LEVEL = 0
-                settings.scene = "loc1"
+            # btns.button_restart.blit_sprite(win)
+            # if btns.button_restart.button_pressing() == True:
+            #     hero.HEALTH = 3
+            #     hero.X = 120
+            #     hero.Y = 184
+            #     hero.RECT.x = 120
+            #     hero.RECT.y = 184
+            #     settings.bg1.blit_sprite(win)
+            #     for trapdoor in area.list_trapdoor:
+            #         trapdoor.X = 540
+            #         trapdoor.Y = 240
+            #         trapdoor.RECT.x = 540
+            #         trapdoor.RECT.y = 240
+            #     settings.lever.NAME_IMG = "images\lever_off.png"
+            #     settings.laser.X = 60
+            #     settings.laser.Y = 480
+            #     settings.laser.RECT.x = 60
+            #     settings.laser.RECT.y = 480
+            #     prisoner.SPEED_ANIMATION = 0
+            #     for ladder in area.list_ladder:
+            #         ladder.blit_sprite(win)
+            #     settings.trapdoor_pressed = False
+            #     settings.laser_pressed = False
+            #     settings.lever.blit_sprite(win)
+            #     settings.lever2.blit_sprite(win)
+            #     hero.CURRENT_LEVEL = 0
+            #     settings.scene = "loc1"
 
 
 

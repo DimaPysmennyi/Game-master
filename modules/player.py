@@ -9,7 +9,7 @@ import pygame
 class Player(object.Object):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.HEALTH = 3
+        self.HEALTH = 50
         self.MOVE_DOWN = False
         self.MOVE_RIGHT = False
         self.MOVE_LEFT = False
@@ -74,13 +74,31 @@ class Player(object.Object):
                     settings.vending_machine_pressed = True
                     
 
-            if self.X + 10 >= settings.keys.X and self.Y + 10 == settings.keys.Y:
+            if self.X + 10 >= settings.keys.X and self.Y == settings.keys.Y:
                 if not "keys" in self.INVENTORY:
                     self.INVENTORY.append("keys")
-                    
-            if self.X - 10 <= settings.keys.X and self.Y - 10 == settings.keys.Y:
-                if not "keys" in self.INVENTORY:
-                    self.INVENTORY.append("keys")
+            if self.X > settings.keys.X:        
+                if self.X - 10 <= settings.keys.X and self.Y == settings.keys.Y:
+                    if not "keys" in self.INVENTORY:
+                        self.INVENTORY.append("keys")
+            
+            if self.X < settings.computer.X:
+                if self.X + 10 >= settings.computer.X and self.Y == settings.computer.Y:
+                    settings.scene = "computer"
+                
+            if self.X - 10 <= settings.computer.X and self.Y == settings.computer.Y:
+                settings.scene = "computer"
+            
+            if self.X > settings.elec.X:        
+                if self.X - 10 <= settings.elec.X and self.Y == settings.elec.Y:
+                    if "screwdriver" in self.INVENTORY:
+                        settings.scene = "wires"
+            
+            if self.X < settings.elec.X:
+                if self.X + 10 >= settings.elec.X and self.Y == settings.elec.Y:
+                    if "screwdriver" in self.INVENTORY:
+                        settings.scene = "wires"
+                
 
         # if siren.ENEMY_MOVE == True:
         #     self.col_right(siren_list)
@@ -153,6 +171,7 @@ class Player(object.Object):
                 area.list_bed.clear()
                 area.list_siren.clear()
                 area.list_vending_machine.clear()
+                area.list_computer.clear()
                 
                 self.CURRENT_LEVEL += 1 
 
@@ -179,6 +198,7 @@ class Player(object.Object):
                 area.list_npc.clear()
                 area.list_siren.clear()
                 area.list_vending_machine.clear()
+                area.list_computer.clear()
                 
                 self.CURRENT_LEVEL -= 1
 

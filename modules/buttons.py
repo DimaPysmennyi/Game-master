@@ -16,6 +16,15 @@ class Button(settings.Settings):
 
 button_list = []
 
+button_minigame1 = Button(
+    width = 60,
+    height = 60,
+    x = 120,
+    y = 60,
+    name_img="images\\buttons\minigame.png",
+    color = (0, 0, 0)
+)
+
 button_start = Button(
     width = 420,
     height = 200,
@@ -79,83 +88,83 @@ skip_button = Button(
 )
 
 button1 = Button(
-    width = 100,
-    height = 100,
-    x = 470,
-    y = 420,
-    name_img = "images\\npc\yes.png",
+    width = 40,
+    height = 60,
+    x = 670,
+    y = 378,
+    name_img = "images\\buttons\\1.png",
     color = "white"
 )
 
 button2 = Button(
-    width = 100,
-    height = 100,
-    x = 570,
-    y = 420,
-    name_img = "images\\npc\yes.png",
+    width = 40,
+    height = 60,
+    x = 710,
+    y = 378,
+    name_img = "images\\buttons\\2.png",
     color = "white"
 )
 
 button3 = Button(
-    width = 100,
-    height = 100,
-    x = 670,
-    y = 420,
-    name_img = "images\\npc\yes.png",
+    width = 40,
+    height = 60,
+    x = 750,
+    y = 378,
+    name_img = "images\\buttons\\3.png",
     color = "white"
 )
 
 button4 = Button(
-    width = 100,
-    height = 100,
-    x = 470,
-    y = 520,
-    name_img = "images\\npc\yes.png",
+    width = 40,
+    height = 60,
+    x = 670,
+    y = 438,
+    name_img = "images\\buttons\\4.png",
     color = "white"
 )
 
 button5 = Button(
-    width = 100,
-    height = 100,
-    x = 570,
-    y = 520,
-    name_img = "images\\npc\yes.png",
+    width = 40,
+    height = 60,
+    x = 710,
+    y = 438,
+    name_img = "images\\buttons\\5.png",
     color = "white"
 )
 
 button6 = Button(
-    width = 100,
-    height = 100,
-    x = 670,
-    y = 520,
-    name_img = "images\\npc\yes.png",
+    width =40,
+    height = 60,
+    x = 750,
+    y = 438,
+    name_img = "images\\buttons\\6.png",
     color = "white"
 )
 
 button7 = Button(
-    width = 100,
-    height = 100,
-    x = 470,
-    y = 620,
-    name_img = "images\\npc\yes.png",
+    width = 40,
+    height = 60,
+    x = 670,
+    y = 498,
+    name_img = "images\\buttons\\7.png",
     color = "white"
 )
 
 button8 = Button(
-    width = 100,
-    height = 100,
-    x = 570,
-    y = 620,
-    name_img = "images\\npc\yes.png",
+    width = 40,
+    height = 60,
+    x = 710,
+    y = 498,
+    name_img = "images\\buttons\8.png",
     color = "white"
 )
 
 button9 = Button(
-    width = 100,
-    height = 100,
-    x = 670,
-    y = 620,
-    name_img = "images\\npc\yes.png",
+    width = 40,
+    height = 60,
+    x = 750,
+    y = 498,
+    name_img = "images\\buttons\9.png",
     color = "white"
 )
 
