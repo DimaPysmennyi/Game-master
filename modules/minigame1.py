@@ -17,6 +17,9 @@ def minigame1(win):
     global right_pressed
     global left_correct
     global right_correct
+
+    settings.bg_minigame.blit_sprite(win)
+
     for bl in button_list_left:
         bl.blit_sprite(win)
 
@@ -43,16 +46,16 @@ def minigame1(win):
                 left_pressed = False
 
     if left_correct == True and right_correct == True:
-        font = pygame.font.SysFont("fonts\Digital_Thin.ttf", 35)
+        font = pygame.font.SysFont("fonts\Digital_Thin.ttf", 100)
         settings.password1.blit_sprite(win)        
-        text = font.render("Тут должен быть пароль, но денег не хватило", 1, (0,0,0), None)
+        text = font.render(str(settings.password), 1, (0,0,0), None)
         win.blit(text, (200, 300))
 
 left_8 = btns.Button(
     width=100,
     height=100,
-    x=0,
-    y=420,
+    x=10,
+    y=320,
     name_img = "images\\buttons\\8.png",
     color = "purple"
 )
@@ -60,8 +63,8 @@ left_8 = btns.Button(
 left_1 = btns.Button(
     width=100,
     height=100,
-    x=0,
-    y=520,
+    x=10,
+    y=420,
     name_img = "images\\buttons\\1.png",
     color = "purple"
 )
@@ -69,8 +72,8 @@ left_1 = btns.Button(
 left_9 = btns.Button(
     width=100,
     height=100,
-    x=0,
-    y=620,
+    x=10,
+    y=520,
     name_img = "images\\buttons\\9.png",
     color = "purple"
 )
@@ -78,8 +81,8 @@ left_9 = btns.Button(
 left_2 = btns.Button(
     width=100,
     height=100,
-    x=0,
-    y=720,
+    x=10,
+    y=620,
     name_img = "images\\buttons\\2.png",
     color = "purple"
 )
@@ -87,32 +90,32 @@ left_2 = btns.Button(
 right_4 = btns.Button(
     width=100,
     height=100,
-    x=740,
-    y=420,
+    x=730,
+    y=320,
     name_img = "images\\buttons\\4.png",
     color = "purple"
 )
 right_1 = btns.Button(
     width=100,
     height=100,
-    x=740,
-    y=520,
+    x=730,
+    y=420,
     name_img = "images\\buttons\\1.png",
     color = "purple"
 )
 right_5 = btns.Button(
     width=100,
     height=100,
-    x=740,
-    y=620,
+    x=730,
+    y=520,
     name_img = "images\\buttons\\5.png",
     color = "purple"
 )
 right_7 = btns.Button(
     width=100,
     height=100,
-    x=740,
-    y=720,
+    x=730,
+    y=620,
     name_img = "images\\buttons\\7.png",
     color = "purple"
 )

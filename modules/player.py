@@ -62,23 +62,23 @@ class Player(object.Object):
             if self.X + 10 >= settings.lever2.X and self.Y == settings.lever2.Y:
                 if settings.laser_pressed == False:
                     settings.laser_pressed = True
-
+            
             if self.X + 10 >= settings.vending_machine.X and self.Y == settings.vending_machine.Y:
                 settings.scene = "vending machine"
                 if settings.vending_machine_pressed == False:
                     settings.vending_machine_pressed = True
-                
-            if self.X - 10 <= settings.vending_machine.X and self.Y == settings.vending_machine.Y:
-                settings.scene = "vending machine"
-                if settings.vending_machine_pressed == False:
-                    settings.vending_machine_pressed = True
+            if self.X > settings.vending_machine.X:
+                if self.X - 10 <= settings.vending_machine.X and self.Y == settings.vending_machine.Y:
+                    settings.scene = "vending machine"
+                    if settings.vending_machine_pressed == False:
+                        settings.vending_machine_pressed = True
                     
-
-            if self.X + 10 >= settings.keys.X and self.Y == settings.keys.Y:
-                if not "keys" in self.INVENTORY:
-                    self.INVENTORY.append("keys")
-            if self.X > settings.keys.X:        
-                if self.X - 10 <= settings.keys.X and self.Y == settings.keys.Y:
+            if self.X < settings.keys.X and self.Y > settings.keys.Y:
+                if self.X + 10 >= settings.keys.X and self.Y - 20 <= settings.keys.Y:
+                    if not "keys" in self.INVENTORY:
+                        self.INVENTORY.append("keys")
+            if self.X > settings.keys.X and self.Y > settings.keys.Y:        
+                if self.X - 10 <= settings.keys.X and self.Y - 20 <= settings.keys.Y:
                     if not "keys" in self.INVENTORY:
                         self.INVENTORY.append("keys")
             
@@ -88,8 +88,8 @@ class Player(object.Object):
                 
             if self.X - 10 <= settings.computer.X and self.Y == settings.computer.Y:
                 settings.scene = "computer"
-            
-            if self.X > settings.elec.X:        
+
+            if self.X > settings.elec.X:
                 if self.X - 10 <= settings.elec.X and self.Y == settings.elec.Y:
                     if "screwdriver" in self.INVENTORY:
                         settings.scene = "wires"

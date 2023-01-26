@@ -1,5 +1,6 @@
 import pygame
 import os
+import random
 
 scene = "menu"
 
@@ -265,10 +266,21 @@ elec = Settings(
     height=30,
     x=400,
     y=724,
-    name_img="images\lever.png",
+    name_img="images\elec.png",
     color=(0,0,0)
     
 )
+
+bg_minigame = Settings(
+    width=840,
+    height=840,
+    x=0,
+    y=0,
+    name_img="images\\bg_minigame1.png",
+    color=(0,0,0)
+)
+
+password = random.randint(1000, 10000)
 
 cutscene_speed = 0
 vending_machine_pressed = False

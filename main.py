@@ -27,11 +27,23 @@ def run_game():
     game = True
     clock = pygame.time.Clock()    
     refuse_srez = 0
-    refuse_str = "Ну і будь ласка!"
+    refuse_str = "Ну і будь ласка!" #x = 12, 120. y = 160, height = 50, width = 110
 
     while game:
-        mouse = pygame.mouse.get_pos()
-        print(hero.X, hero.Y)
+        print(
+            wires.lgw, 
+            wires.lrw,
+            wires.lbw, 
+            wires.lpw, 
+            wires.lyw, 
+            wires.rbw, 
+            wires.rgw, 
+            wires.rrw, 
+            wires.ryw, 
+            wires.rpw
+        ) 
+        mouse = pygame.mouse.get_pos() 
+        # print(hero.X, hero.Y)
         win.fill((0,0,0))
         # print(mouse)
         for event in pygame.event.get():
@@ -296,12 +308,13 @@ def run_game():
             for computer in area.list_computer:
                 computer.blit_sprite(win)
 
-            settings.elec.draw(win)
             hero.move(area.list_block_area)
             hero.show_dialog(security_guy)
             hero.exit(area, enemy, win)
+            settings.elec.blit_sprite(win)
             hero.blit_sprite(win)
             hero.health_font(win)
+            
 
             if security_guy.SHOW_DIALOG == True:
                 print(security_guy.CURRENT_STR)
@@ -390,18 +403,23 @@ def run_game():
             
             btns.back_button.blit_sprite(win)
 
-        if wires.lights_on == True:
-            if settings.scene == "computer":
+        
+        if settings.scene == "computer":
+            if wires.lights_on == True:
                 settings.win98.blit_sprite(win)
                 btns.button_minigame1.blit_sprite(win)
                 if btns.button_minigame1.button_pressing() == True:
                     settings.scene = "minigame1"
+            btns.back_button.blit_sprite(win)
+            if btns.back_button.button_pressing():
+                settings.scene = "loc3" 
+            
 
         if settings.scene == "minigame1":
-            font = pygame.font.SysFont('fonts\\PixelFont.ttf', 100)
-            text = font.render("?+?=15", 1, (255,255,255), None)
-            win.blit(text, (300, 10))
             minigame1.minigame1(win)
+            font = pygame.font.SysFont('fonts\\PixelFont.ttf', 100)
+            text = font.render("?+?=15", 1, (0,0,0), (101,94,146))
+            win.blit(text, (275, 150))
             
 
         if settings.scene == "game_over":
@@ -409,44 +427,6 @@ def run_game():
             # pygame.mixer.music.load("sounds\\bg.mp3")
             # pygame.mixer.music.play(-1)
             settings.bg_death.blit_sprite(win)
-
-            # btns.button_restart.blit_sprite(win)
-            # if btns.button_restart.button_pressing() == True:
-            #     hero.HEALTH = 3
-            #     hero.X = 120
-            #     hero.Y = 184
-            #     hero.RECT.x = 120
-            #     hero.RECT.y = 184
-            #     settings.bg1.blit_sprite(win)
-            #     for trapdoor in area.list_trapdoor:
-            #         trapdoor.X = 540
-            #         trapdoor.Y = 240
-            #         trapdoor.RECT.x = 540
-            #         trapdoor.RECT.y = 240
-            #     settings.lever.NAME_IMG = "images\lever_off.png"
-            #     settings.laser.X = 60
-            #     settings.laser.Y = 480
-            #     settings.laser.RECT.x = 60
-            #     settings.laser.RECT.y = 480
-            #     prisoner.SPEED_ANIMATION = 0
-            #     for ladder in area.list_ladder:
-            #         ladder.blit_sprite(win)
-            #     settings.trapdoor_pressed = False
-            #     settings.laser_pressed = False
-            #     settings.lever.blit_sprite(win)
-            #     settings.lever2.blit_sprite(win)
-            #     hero.CURRENT_LEVEL = 0
-            #     settings.scene = "loc1"
-
-
-
-            # enemy.bullet1.draw(win)
-
-            
-            # print(hero.GRAVITY)
-            
-        # hero.draw(win)
-        
 
         clock.tick(60)
         pygame.display.flip()

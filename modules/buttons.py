@@ -53,11 +53,11 @@ button_exit = Button(
 )
 
 back_button = Button(
-    width = 100,
+    width = 50,
     height = 50,
     x = 0,
     y = 0, 
-    name_img = "images\\npc\yes.png",
+    name_img = "images\\buttons\\back_button.png",
     color = "black"
 )
 yes_button = Button(

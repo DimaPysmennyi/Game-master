@@ -30,22 +30,7 @@ level1 = [
     list("bbbbbbbbbbbbbb")
 ]
 
-level4 = [
-    list("bbbbbbbbbbbbbb"),
-    list("b000000000000b"),
-    list("b000000000000b"),
-    list("b000000000000b"),
-    list("b000000000000b"),
-    list("b000000000000b"),
-    list("b000000000000b"),
-    list("b000000000000b"),
-    list("b000000000000b"),
-    list("b000000000000b"),
-    list("b000000000000b"),
-    list("b000000000000b"),
-    list("lp00000000000r"),
-    list("bbbbbbbbbbbbbb")
-]
+
 
 level2 = [
     list("bbbbbbbbbbbbbb"),
@@ -68,16 +53,36 @@ level2 = [
 level3 = [
     list("bbbbbbbbbbbbbb"),
     list("lp00000000000b"),
-    list("bbbbb00000000b"),
-    list("b0000b0000000b"),
-    list("bbb000b000000b"),
-    list("b000000b00000b"),
-    list("b0000000b0000b"),
-    list("b0000000b0000b"),
-    list("b0000000b0000b"),
-    list("b00000000b000b"),
-    list("b00000000b00vb"),
-    list("b00000000b0bbb"),
-    list("bm00000000002b"),
+    list("bbbbb0000000rb"),
+    list("b000000000bbbb"),
+    list("bbb0000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("bm00000000000b"),
+    list("bbbb000000000b"),
+    list("b000000000000b"),
+    list("b00000000000vb"),
+    list("b0000000000bbb"),
+    list("b000000000002b"),
+    list("bbbbbbbbbbbbbb")
+]
+
+#TODO
+#coridor pz pz relizni
+#релизни корридор пж а то абсурд и отвертка тожеда 
+level4 = [
+    list("bbbbbbbbbbbbbb"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("b000000000000b"),
+    list("lp00000000000b"),
     list("bbbbbbbbbbbbbb")
 ]
