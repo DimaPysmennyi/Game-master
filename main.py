@@ -11,6 +11,7 @@ import random
 import modules.buttons as btns
 import modules.minigame1 as minigame1
 import modules.wires as wires
+import modules.terminal as terminal
 
 pygame.init()
 
@@ -45,7 +46,7 @@ def run_game():
         mouse = pygame.mouse.get_pos() 
         # print(hero.X, hero.Y)
         win.fill((0,0,0))
-        # print(mouse)
+        print(mouse)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game = False
@@ -265,7 +266,7 @@ def run_game():
                         
                         if btns.yes_button.button_pressing() == True:
                             illya.JOKE = "tell"
-                            index_joke = random.randint(0, 5)
+                            index_joke = random.randint(0, 4)
 
                         if btns.no_button.button_pressing() == True:
                             illya.JOKE = "refuse"
@@ -287,6 +288,12 @@ def run_game():
                 settings.scene = "game_over"
 
         if settings.scene == "loc3":
+            if settings.password[0] == settings.password[1] or settings.password[0] == settings.password[2] or settings.password[0] == settings.password[3]:
+                settings.password = str(random.randint(1000, 10000))
+            if settings.password[1] == settings.password[2] or settings.password[1] == settings.password[3]:
+                settings.password = str(random.randint(1000, 10000))
+            if settings.password[2] == settings.password[3]:
+                settings.password = str(random.randint(1000, 10000))
             win.fill((0, 0, 0))
             for block in area.list_block_area:
                 block.blit_sprite(win)
@@ -381,6 +388,7 @@ def run_game():
                         security_guy.show_text(dialogs.security_guy_dialog[6][0][0:dialogs.security_guy_dialog[6][1]], win, 35, 55, 735)  
                         if not "coin" in hero.INVENTORY:        
                             hero.INVENTORY.append("coin")
+
             if security_guy.SHOW_DIALOG == False:
                 security_guy.CURRENT_STR = 0
 
@@ -420,7 +428,9 @@ def run_game():
             font = pygame.font.SysFont('fonts\\PixelFont.ttf', 100)
             text = font.render("?+?=15", 1, (0,0,0), (101,94,146))
             win.blit(text, (275, 150))
-            
+        
+        if settings.scene == "terminal":
+            terminal.terminal(win)
 
         if settings.scene == "game_over":
             win.fill((168, 0, 0))

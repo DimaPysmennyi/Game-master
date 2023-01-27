@@ -9,7 +9,7 @@ class Area(settings.Settings):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-map = [level1, level2, level3]
+map = [level1, level2, level3, level4]
 # пака ярик
 list_block_area = []
 block_width = 60

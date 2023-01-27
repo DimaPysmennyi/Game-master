@@ -19,6 +19,9 @@ def minigame1(win):
     global right_correct
 
     settings.bg_minigame.blit_sprite(win)
+    btns.back_button.blit_sprite(win)
+    if btns.back_button.button_pressing():
+        settings.scene = "computer"
 
     for bl in button_list_left:
         bl.blit_sprite(win)

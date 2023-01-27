@@ -180,6 +180,11 @@ class Player(object.Object):
                     enemy.turret.shoot(win, "L", 200, width=80, height=25)
                 if self.CURRENT_LEVEL == 2:
                     settings.scene = "loc3"
+                if self.CURRENT_LEVEL == 3:
+                    if settings.terminal == False:
+                        settings.scene = "terminal"
+                    else:
+                        settings.scene = "loc4"
 
                 area.create_area()
 
@@ -215,7 +220,8 @@ class Player(object.Object):
                     enemy.turret.shoot(win, "L", 200, width=80, height=25)
                 if self.CURRENT_LEVEL == 2:
                     settings.scene = "loc3"
-
+                if self.CURRENT_LEVEL == 3:
+                    settings.password = "loc4"
                 area.create_area()
 
     def health_font(self, win):

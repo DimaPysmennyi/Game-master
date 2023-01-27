@@ -280,7 +280,8 @@ bg_minigame = Settings(
     color=(0,0,0)
 )
 
-password = random.randint(1000, 10000)
+password = str(random.randint(1000, 10000))
+terminal = False
 
 cutscene_speed = 0
 vending_machine_pressed = False
