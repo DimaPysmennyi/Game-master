@@ -88,86 +88,96 @@ skip_button = Button(
 )
 
 button1 = Button(
-    width = 40,
-    height = 60,
-    x = 670,
-    y = 378,
+    width = 35,
+    height = 35,
+    x = 680,
+    y = 386,
     name_img = "images\\buttons\\1.png",
     color = "white"
 )
 
 button2 = Button(
-    width = 40,
-    height = 60,
-    x = 710,
-    y = 378,
+    width = 35,
+    height = 35,
+    x = 720,
+    y = 386,
     name_img = "images\\buttons\\2.png",
     color = "white"
 )
 
 button3 = Button(
-    width = 40,
-    height = 60,
-    x = 750,
-    y = 378,
+    width = 35,
+    height = 35,
+    x = 760,
+    y = 386,
     name_img = "images\\buttons\\3.png",
     color = "white"
 )
 
 button4 = Button(
-    width = 40,
-    height = 60,
-    x = 670,
-    y = 438,
+    width = 35,
+    height = 35,
+    x = 680,
+    y = 426,
     name_img = "images\\buttons\\4.png",
     color = "white"
 )
 
 button5 = Button(
-    width = 40,
-    height = 60,
-    x = 710,
-    y = 438,
+    width = 35,
+    height = 35,
+    x = 720,
+    y = 426,
     name_img = "images\\buttons\\5.png",
     color = "white"
 )
 
 button6 = Button(
-    width =40,
-    height = 60,
-    x = 750,
-    y = 438,
+    width = 35,
+    height = 35,
+    x = 760,
+    y = 426,
     name_img = "images\\buttons\\6.png",
     color = "white"
 )
 
 button7 = Button(
-    width = 40,
-    height = 60,
-    x = 670,
-    y = 498,
+    width = 35,
+    height = 35,
+    x = 680,
+    y = 466,
     name_img = "images\\buttons\\7.png",
     color = "white"
 )
 
 button8 = Button(
-    width = 40,
-    height = 60,
-    x = 710,
-    y = 498,
+    width = 35,
+    height = 35,
+    x = 720,
+    y = 466,
     name_img = "images\\buttons\8.png",
     color = "white"
 )
 
 button9 = Button(
-    width = 40,
-    height = 60,
-    x = 750,
-    y = 498,
+    width = 35,
+    height = 35,
+    x = 760,
+    y = 466,
     name_img = "images\\buttons\9.png",
     color = "white"
 )
 
+button0 = Button(
+    width = 35,
+    height = 35,
+    x = 720,
+    y = 506,
+    name_img = "images\\buttons\\0.png",
+    color = "white"
+)
+
+button_list.append(button0)
 button_list.append(button1)
 button_list.append(button2)
 button_list.append(button3)

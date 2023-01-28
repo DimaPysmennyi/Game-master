@@ -1,7 +1,7 @@
 import pygame
 import modules.buttons as btns
 import modules.settings as settings
-import random
+import modules.player as player
 
 p0 = False
 p1 = False
@@ -86,7 +86,7 @@ def terminal(win):
                     input_list.append("9")
                     p9 = True
 
-    if len(input_list) > 4:
+    if len(input_list) == 4:
         input_password = input_list[0]+input_list[1]+input_list[2]+input_list[3]
         if input_password == settings.password:
             settings.terminal = True
@@ -105,7 +105,11 @@ def terminal(win):
             p9 = False
 
         input_list.clear()    
-
+    btns.back_button.blit_sprite(win)
+    if btns.back_button.button_pressing():
+        settings.scene == "loc3"
+        player.hero.CURRENT_LEVEL -= 1
+         
 bt0 = btns.Button(
     width=60,
     height=60,

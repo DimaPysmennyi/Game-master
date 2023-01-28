@@ -29,24 +29,12 @@ def run_game():
     clock = pygame.time.Clock()    
     refuse_srez = 0
     refuse_str = "Ну і будь ласка!" #x = 12, 120. y = 160, height = 50, width = 110
-
+    # pygame.mixer.music.load("sounds\\music.wav")
+    # pygame.mixer.music.set_volume(0.5)
+    # pygame.mixer.music.play(-1)
     while game:
-        print(
-            wires.lgw, 
-            wires.lrw,
-            wires.lbw, 
-            wires.lpw, 
-            wires.lyw, 
-            wires.rbw, 
-            wires.rgw, 
-            wires.rrw, 
-            wires.ryw, 
-            wires.rpw
-        ) 
-        mouse = pygame.mouse.get_pos() 
-        # print(hero.X, hero.Y)
         win.fill((0,0,0))
-        print(mouse)
+        # print(mouse)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game = False
@@ -66,13 +54,28 @@ def run_game():
             # if pygame.rect.collidepoint(settings.button):
             #     settings.scene = "loc1"
         if settings.scene == "cutscene1":
+            print(settings.cutscene_speed)
             
             if settings.cutscene_speed < 300:
-                settings.cutscene.blit_sprite(win)
                 settings.cutscene_speed += 1
-                
-            else:
-                settings.scene = "loc1"
+
+            if settings.cutscene_speed > 299 and settings.cutscene_speed < 600:
+                settings.cutscene.NAME_IMG = "images\cutscene1_5.png"
+                settings.cutscene.load_image()
+                settings.cutscene_speed += 1
+            
+            if settings.cutscene_speed > 599:
+                if settings.cutscene1_speed == 20:
+                    settings.current_frame1 += 1
+                    settings.cutscene.NAME_IMG = f"images\\cutscene1\\{str(settings.current_frame1)}.png"
+                    settings.cutscene.load_image()
+                    settings.cutscene1_speed = 0
+                if settings.current_frame1 >= 25:
+                    settings.scene = "loc1"
+                else:
+                    settings.cutscene1_speed += 1
+            settings.cutscene.blit_sprite(win)
+
 
         if settings.scene == "loc1":
             win.fill((0, 0, 0))
@@ -431,6 +434,49 @@ def run_game():
         
         if settings.scene == "terminal":
             terminal.terminal(win)
+
+        if settings.scene == "loc4":
+            for block in area.list_block_area:
+                block.blit_sprite(win)
+            
+            for door in area.list_door_left:
+                door.blit_sprite(win)
+            
+            hero.move(area.list_block_area)
+            hero.blit_sprite(win)
+            hero.exit(area, enemy, win)
+            hero.health_font(win)
+            settings.spaceship.blit_sprite(win)
+
+        if settings.scene == "cutscene2":
+            
+            print(settings.cutscene2_speed, settings.current_frame2)
+            print(settings.cutscene2.NAME_IMG)
+            if settings.cutscene2_speed == 20:
+                settings.current_frame2 += 1
+                settings.cutscene2.NAME_IMG = f"images\\cutscene2\\{str(settings.current_frame2)}.png"
+                settings.cutscene2.load_image()
+                settings.cutscene2_speed = 0
+            if settings.current_frame2 >= 25:
+                settings.scene = "cutscene3"
+            else:
+                settings.cutscene2_speed += 1
+            settings.cutscene2.blit_sprite(win)
+
+        if settings.scene == "cutscene3":
+            if settings.cutscene3_speed == 20:
+                settings.current_frame3 += 1
+                settings.cutscene3.NAME_IMG = f"images\\cutscene3\\{str(settings.current_frame3)}.png"
+                settings.cutscene3.load_image()
+                settings.cutscene3_speed = 0
+            if settings.current_frame3 >= 7:
+                settings.scene = "credits"
+            else:
+                settings.cutscene3_speed += 1
+            settings.cutscene3.blit_sprite(win)
+        
+        if settings.scene == "credits":
+            settings.credits.blit_sprite(win)
 
         if settings.scene == "game_over":
             win.fill((168, 0, 0))

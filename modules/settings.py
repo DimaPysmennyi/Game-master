@@ -280,8 +280,63 @@ bg_minigame = Settings(
     color=(0,0,0)
 )
 
+spaceship = Settings(
+    width=200,
+    height=100,
+    x=560,
+    y=674,
+    name_img="images\\spaceship.png",
+    color=(255,255,255)
+)
+
+
+
 password = str(random.randint(1000, 10000))
 terminal = False
 
 cutscene_speed = 0
 vending_machine_pressed = False
+
+cutscene1_speed = 0
+current_frame1 = 1
+
+current_frame3 = 1
+cutscene3_speed = 0
+
+current_frame2 = 1
+cutscene2_speed = 0
+
+cutscene1 = Settings(
+    width = 840,
+    height = 840,
+    x = 0,
+    y = 0,
+    name_img="images\\cutscene1\\1.png",
+    color=(0,0,0)
+)
+
+cutscene2 = Settings(
+    width = 840,
+    height = 840,
+    x = 0,
+    y = 0,
+    name_img="images\\cutscene2\\1.png",
+    color=(0,0,0)
+) #244, 88
+cutscene3 = Settings(
+    width = 840,
+    height = 840,
+    x = 0,
+    y = 0,
+    name_img="images\\cutscene3\\1.png",
+    color=(0,0,0)
+)
+
+credits = Settings(
+    width = 840,
+    height = 840,
+    x = 0,
+    y = 0,
+    name_img="images\\credits.png",
+    color=(0,0,0)
+)

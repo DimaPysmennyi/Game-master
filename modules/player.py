@@ -98,6 +98,18 @@ class Player(object.Object):
                 if self.X + 10 >= settings.elec.X and self.Y == settings.elec.Y:
                     if "screwdriver" in self.INVENTORY:
                         settings.scene = "wires"
+
+            if self.X < settings.spaceship.X:
+                if self.X + 10 >= settings.spaceship.X:
+                    if self.Y >= settings.spaceship.Y:
+                        if self.Y - 50 <= settings.spaceship.Y:
+                            settings.scene = "cutscene2"
+            
+            if self.X > settings.spaceship.X:
+                if self.X - 10 <= settings.spaceship.X:
+                    if self.Y >= settings.spaceship.Y:
+                        if self.Y - 50 <= settings.spaceship.Y:
+                            settings.scene = "cutscene2" 
                 
 
         # if siren.ENEMY_MOVE == True:
