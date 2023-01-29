@@ -12,6 +12,7 @@ import modules.buttons as btns
 import modules.minigame1 as minigame1
 import modules.wires as wires
 import modules.terminal as terminal
+import modules.sound as sound
 
 pygame.init()
 
@@ -29,10 +30,11 @@ def run_game():
     clock = pygame.time.Clock()    
     refuse_srez = 0
     refuse_str = "Ну і будь ласка!" #x = 12, 120. y = 160, height = 50, width = 110
-    # pygame.mixer.music.load("sounds\\music.wav")
-    # pygame.mixer.music.set_volume(0.5)
-    # pygame.mixer.music.play(-1)
+
     while game:
+        print(settings.sound)
+        if settings.sound == True:
+            sound.bg_music("audio.wav")
         win.fill((0,0,0))
         # print(mouse)
         for event in pygame.event.get():
@@ -42,19 +44,30 @@ def run_game():
             settings.bg_menu.blit_sprite(win)
             btns.button_start.blit_sprite(win)
             btns.button_exit.blit_sprite(win)
+            btns.sound_switch.blit_sprite(win)
 
             if btns.button_start.button_pressing() == True:
                 settings.scene = "cutscene1"
 
             if btns.button_exit.button_pressing() == True:
                 game = False
+            
+            if btns.sound_switch.button_pressing():
+                if settings.sound == True:
+                    btns.sound_switch.NAME_IMG = "images\sound_on.png"
+                    btns.sound_switch.load_image()
+                    settings.sound = False
+                else:
+                    btns.sound_switch.NAME_IMG = "images\sound_off.png"
+                    btns.sound_switch.load_image()
+                    settings.sound = True
             # if pame.MOUSEBUTTONDOWN and :
             # if pressing[pygame.K_SPACE]:
             #     settings.scene = "loc1"
             # if pygame.rect.collidepoint(settings.button):
             #     settings.scene = "loc1"
         if settings.scene == "cutscene1":
-            print(settings.cutscene_speed)
+            # print(settings.cutscene_speed)
             
             if settings.cutscene_speed < 300:
                 settings.cutscene_speed += 1
@@ -102,7 +115,7 @@ def run_game():
             for turret in area.list_turrets:
                 turret.load_image()
                 turret.blit_sprite(win)
-                enemy.turret.shoot(win, "R", 200, width=80, height=25)
+                enemy.turret.shoot(win, "R", 200)
 
             
             for npc in area.list_npc:
@@ -204,7 +217,7 @@ def run_game():
             for turret in area.list_turrets:
                 turret.load_image(direction=True)
                 turret.blit_sprite(win)
-                enemy.turret.shoot(win, "L", 200, width=80, height=25)
+                enemy.turret.shoot(win, "L", 200)
 
             
             for npc in area.list_npc:
@@ -220,9 +233,10 @@ def run_game():
 
 
 
-            print(hero.INVENTORY)
-            if not "keys" in hero.INVENTORY:
-                settings.keys.blit_sprite(win)
+            # print(hero.INVENTORY)
+            if settings.need_keys == True:
+                if not "keys" in hero.INVENTORY:
+                    settings.keys.blit_sprite(win)
 
             hero.move(area.list_block_area)
             hero.show_dialog(illya)
@@ -291,13 +305,16 @@ def run_game():
                 settings.scene = "game_over"
 
         if settings.scene == "loc3":
+
             if settings.password[0] == settings.password[1] or settings.password[0] == settings.password[2] or settings.password[0] == settings.password[3]:
                 settings.password = str(random.randint(1000, 10000))
             if settings.password[1] == settings.password[2] or settings.password[1] == settings.password[3]:
                 settings.password = str(random.randint(1000, 10000))
             if settings.password[2] == settings.password[3]:
                 settings.password = str(random.randint(1000, 10000))
+
             win.fill((0, 0, 0))
+            settings.bg3.blit_sprite(win)
             for block in area.list_block_area:
                 block.blit_sprite(win)
 
@@ -327,10 +344,11 @@ def run_game():
             
 
             if security_guy.SHOW_DIALOG == True:
-                print(security_guy.CURRENT_STR)
+                # print(security_guy.CURRENT_STR)
                 security_guy.dialog(win, settings.player_head, settings.security_guy_head)
-                print(security_guy.CURRENT_STR)
+                # print(security_guy.CURRENT_STR)
                 if settings.vending_machine_pressed == False:
+                    settings.need_vending_machine = True
                     if security_guy.CURRENT_STR >= 0:
                         dialogs.security_guy_dialog[0][1] += 1
                         security_guy.show_text(dialogs.security_guy_dialog[0][0][0:dialogs.security_guy_dialog[0][1]], win, 35, 55, 675)
@@ -361,36 +379,54 @@ def run_game():
                 if settings.vending_machine_pressed == True:
                     security_guy.dialog(win, settings.player_head, settings.security_guy_head)
                     if not "keys" in hero.INVENTORY:
-                        if settings.vending_machine_pressed == False:
-                            if security_guy.CURRENT_STR >= 3:
-                                dialogs.security_guy_dialog[3][1] += 1
-                                security_guy.show_text(dialogs.security_guy_dialog[3][0][0:dialogs.security_guy_dialog[3][1]], win, 35, 55, 675)
-                            if security_guy.CURRENT_STR >= 4:
-                                dialogs.security_guy_dialog[4][1] += 1
-                                security_guy.show_text(dialogs.security_guy_dialog[4][0][0:dialogs.security_guy_dialog[4][1]], win, 35, 55, 705)
-                            if security_guy.CURRENT_STR >= 5:
-                                dialogs.security_guy_dialog[5][1] += 1
-                                security_guy.show_text(dialogs.security_guy_dialog[5][0][0:dialogs.security_guy_dialog[5][1]], win, 35, 55, 735)  
-
-                            if dialogs.security_guy_dialog[3][1] > len(dialogs.security_guy_dialog[3][0]):
-                                # prisoner.DIALOG_Y += 30
-                                if security_guy.CURRENT_STR < 4: 
-                                    security_guy.CURRENT_STR += 1
-                            if dialogs.security_guy_dialog[4][1] > len(dialogs.security_guy_dialog[4][0]):
-                                # prisoner.DIALOG_Y += 30
-                                if security_guy.CURRENT_STR < 5: 
-                                    security_guy.CURRENT_STR += 1
-                            if dialogs.security_guy_dialog[5][1] > len(dialogs.security_guy_dialog[5][0]):
-                                # prisoner.DIALOG_Y += 30
-                                if security_guy.CURRENT_STR < 6: 
-                                    security_guy.CURRENT_STR += 1
+                        settings.need_keys = True
+                        if security_guy.CURRENT_STR >= 0:
+                            dialogs.security_guy_dialog[3][1] += 1
+                            security_guy.show_text(dialogs.security_guy_dialog[3][0][0:dialogs.security_guy_dialog[3][1]], win, 35, 55, 675)
+                        if security_guy.CURRENT_STR >= 1:
+                            dialogs.security_guy_dialog[4][1] += 1
+                            security_guy.show_text(dialogs.security_guy_dialog[4][0][0:dialogs.security_guy_dialog[4][1]], win, 35, 55, 705)
+                        if security_guy.CURRENT_STR >= 2:
+                            dialogs.security_guy_dialog[5][1] += 1
+                            security_guy.show_text(dialogs.security_guy_dialog[5][0][0:dialogs.security_guy_dialog[5][1]], win, 35, 55, 735)  
+                        if dialogs.security_guy_dialog[3][1] > len(dialogs.security_guy_dialog[3][0]):
+                            # prisoner.DIALOG_Y += 30
+                            if security_guy.CURRENT_STR < 1: 
+                                security_guy.CURRENT_STR += 1
+                        if dialogs.security_guy_dialog[4][1] > len(dialogs.security_guy_dialog[4][0]):
+                            # prisoner.DIALOG_Y += 30
+                            if security_guy.CURRENT_STR < 2: 
+                                security_guy.CURRENT_STR += 1
+                        if dialogs.security_guy_dialog[5][1] > len(dialogs.security_guy_dialog[5][0]):
+                            # prisoner.DIALOG_Y += 30
+                            if security_guy.CURRENT_STR < 3: 
+                                security_guy.CURRENT_STR += 1
 
                     if "keys" in hero.INVENTORY:
-                        hero.INVENTORY.remove("keys")
-                        dialogs.security_guy_dialog[6][1] += 1
-                        security_guy.show_text(dialogs.security_guy_dialog[6][0][0:dialogs.security_guy_dialog[6][1]], win, 35, 55, 735)  
-                        if not "coin" in hero.INVENTORY:        
-                            hero.INVENTORY.append("coin")
+                        if security_guy.CURRENT_STR >= 0:
+                            dialogs.security_guy_dialog[6][1] += 1
+                            security_guy.show_text(dialogs.security_guy_dialog[6][0][0:dialogs.security_guy_dialog[6][1]], win, 35, 55, 675)  
+                            if not "coin" in hero.INVENTORY:        
+                                hero.INVENTORY.append("coin")
+                        if security_guy.CURRENT_STR >= 1:
+                            dialogs.security_guy_dialog[7][1] += 1
+                            security_guy.show_text(dialogs.security_guy_dialog[7][0][0:dialogs.security_guy_dialog[7][1]], win, 35, 55, 705)  
+                        if security_guy.CURRENT_STR >= 2:
+                            dialogs.security_guy_dialog[8][1] += 1
+                            security_guy.show_text(dialogs.security_guy_dialog[8][0][0:dialogs.security_guy_dialog[8][1]], win, 35, 55, 735)  
+                            
+                        if dialogs.security_guy_dialog[6][1] > len(dialogs.security_guy_dialog[6][0]):
+                            # prisoner.DIALOG_Y += 30
+                            if security_guy.CURRENT_STR < 1: 
+                                security_guy.CURRENT_STR += 1
+                        if dialogs.security_guy_dialog[7][1] > len(dialogs.security_guy_dialog[7][0]):
+                            # prisoner.DIALOG_Y += 30
+                            if security_guy.CURRENT_STR < 2: 
+                                security_guy.CURRENT_STR += 1
+                        if dialogs.security_guy_dialog[8][1] > len(dialogs.security_guy_dialog[8][0]):
+                            # prisoner.DIALOG_Y += 30
+                            if security_guy.CURRENT_STR < 3: 
+                                security_guy.CURRENT_STR += 1
 
             if security_guy.SHOW_DIALOG == False:
                 security_guy.CURRENT_STR = 0
@@ -421,6 +457,10 @@ def run_game():
                 btns.button_minigame1.blit_sprite(win)
                 if btns.button_minigame1.button_pressing() == True:
                     settings.scene = "minigame1"
+            if wires.lights_on == False:
+                font = pygame.font.SysFont("fonts\Digital_Thin.ttf", 35)
+                text1 = font.render(str("Необхідно увімкнути світло!"), 1, (255,255,255), (215,0,0))
+                win.blit(text1, (250, 420)) 
             btns.back_button.blit_sprite(win)
             if btns.back_button.button_pressing():
                 settings.scene = "loc3" 
@@ -429,13 +469,37 @@ def run_game():
         if settings.scene == "minigame1":
             minigame1.minigame1(win)
             font = pygame.font.SysFont('fonts\\PixelFont.ttf', 100)
-            text = font.render("?+?=15", 1, (0,0,0), (101,94,146))
-            win.blit(text, (275, 150))
+            text = font.render("?+?=15", 1, (0,0,0), None)
+            win.blit(text, (300, 150))
         
         if settings.scene == "terminal":
             terminal.terminal(win)
+            btns.back_button.blit_sprite(win)
+            if btns.back_button.button_pressing():
+                area.list_block_area.clear()
+                area.list_door_right.clear()
+                area.list_door_left.clear()
+                # area.list_door_left_rect.clear()
+                area.list_turrets.clear()
+                # area.list_turrets_rect.clear()
+                area.list_bullet.clear()
+                area.list_lever.clear()
+                area.list_ladder.clear()
+                area.list_bed.clear()
+                area.list_npc.clear()
+                area.list_siren.clear()
+                area.list_vending_machine.clear()
+                area.list_computer.clear()
+                terminal.input_list.clear()
+                hero.CURRENT_LEVEL -= 1
+
+                settings.scene = "loc3"
+                area.create_area(600,120)
+
 
         if settings.scene == "loc4":
+            settings.bg4.blit_sprite(win)
+            settings.spaceship.blit_sprite(win)
             for block in area.list_block_area:
                 block.blit_sprite(win)
             
@@ -446,12 +510,9 @@ def run_game():
             hero.blit_sprite(win)
             hero.exit(area, enemy, win)
             hero.health_font(win)
-            settings.spaceship.blit_sprite(win)
+
 
         if settings.scene == "cutscene2":
-            
-            print(settings.cutscene2_speed, settings.current_frame2)
-            print(settings.cutscene2.NAME_IMG)
             if settings.cutscene2_speed == 20:
                 settings.current_frame2 += 1
                 settings.cutscene2.NAME_IMG = f"images\\cutscene2\\{str(settings.current_frame2)}.png"

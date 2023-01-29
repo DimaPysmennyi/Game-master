@@ -9,7 +9,7 @@ import pygame
 class Player(object.Object):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.HEALTH = 50
+        self.HEALTH = 5
         self.MOVE_DOWN = False
         self.MOVE_RIGHT = False
         self.MOVE_LEFT = False
@@ -54,62 +54,68 @@ class Player(object.Object):
 
 
         if event[pygame.K_e]:   
-            if self.X + 10 >= settings.lever.X and self.Y == settings.lever.Y:
-                if settings.trapdoor_pressed == False:
+            if settings.scene == "loc1":
+                if self.X + 10 >= settings.lever.X and self.Y == settings.lever.Y:
+                    if settings.trapdoor_pressed == False:
+                        settings.trapdoor_pressed = True
 
-                    settings.trapdoor_pressed = True
+                if self.X + 10 >= settings.lever2.X and self.Y == settings.lever2.Y:
+                    if settings.laser_pressed == False:
+                        settings.laser_pressed = True
+        
             
-            if self.X + 10 >= settings.lever2.X and self.Y == settings.lever2.Y:
-                if settings.laser_pressed == False:
-                    settings.laser_pressed = True
+            if settings.scene == "loc2":
+                if settings.need_keys == True:
+                    if self.X < settings.keys.X and self.Y > settings.keys.Y:
+                        if self.X + 50 >= settings.keys.X and self.Y - 20 <= settings.keys.Y:
+                            if not "keys" in self.INVENTORY:
+                                self.INVENTORY.append("keys")
+                    if self.X > settings.keys.X and self.Y > settings.keys.Y:        
+                        if self.X - 50 <= settings.keys.X and self.Y - 20 <= settings.keys.Y:
+                            if not "keys" in self.INVENTORY:
+                                self.INVENTORY.append("keys")
             
-            if self.X + 10 >= settings.vending_machine.X and self.Y == settings.vending_machine.Y:
-                settings.scene = "vending machine"
-                if settings.vending_machine_pressed == False:
-                    settings.vending_machine_pressed = True
-            if self.X > settings.vending_machine.X:
-                if self.X - 10 <= settings.vending_machine.X and self.Y == settings.vending_machine.Y:
-                    settings.scene = "vending machine"
-                    if settings.vending_machine_pressed == False:
-                        settings.vending_machine_pressed = True
-                    
-            if self.X < settings.keys.X and self.Y > settings.keys.Y:
-                if self.X + 10 >= settings.keys.X and self.Y - 20 <= settings.keys.Y:
-                    if not "keys" in self.INVENTORY:
-                        self.INVENTORY.append("keys")
-            if self.X > settings.keys.X and self.Y > settings.keys.Y:        
-                if self.X - 10 <= settings.keys.X and self.Y - 20 <= settings.keys.Y:
-                    if not "keys" in self.INVENTORY:
-                        self.INVENTORY.append("keys")
-            
-            if self.X < settings.computer.X:
-                if self.X + 10 >= settings.computer.X and self.Y == settings.computer.Y:
-                    settings.scene = "computer"
-                
-            if self.X - 10 <= settings.computer.X and self.Y == settings.computer.Y:
-                settings.scene = "computer"
+            if settings.scene == "loc3":
+                if self.X < settings.computer.X:
+                    if self.X + 50 >= settings.computer.X and self.Y == settings.computer.Y:
+                        settings.scene = "computer"
+                if self.X > settings.computer.X:
+                    if self.X - 50 <= settings.computer.X and self.Y == settings.computer.Y:
+                        settings.scene = "computer"
+                if settings.need_vending_machine == True:
+                    if self.X < settings.vending_machine.X:
+                        if self.X + 50 >= settings.vending_machine.X and self.Y == settings.vending_machine.Y:
+                            settings.scene = "vending machine"
+                            if settings.vending_machine_pressed == False:
+                                settings.vending_machine_pressed = True
+    
+                    if self.X > settings.vending_machine.X:
+                        if self.X - 50 <= settings.vending_machine.X and self.Y == settings.vending_machine.Y:
+                            settings.scene = "vending machine"
+                            if settings.vending_machine_pressed == False:
+                                settings.vending_machine_pressed = True
 
-            if self.X > settings.elec.X:
-                if self.X - 10 <= settings.elec.X and self.Y == settings.elec.Y:
-                    if "screwdriver" in self.INVENTORY:
-                        settings.scene = "wires"
-            
-            if self.X < settings.elec.X:
-                if self.X + 10 >= settings.elec.X and self.Y == settings.elec.Y:
-                    if "screwdriver" in self.INVENTORY:
-                        settings.scene = "wires"
+                if self.X > settings.elec.X:
+                    if self.X - 10 <= settings.elec.X and self.Y == settings.elec.Y:
+                        if "screwdriver" in self.INVENTORY:
+                            settings.scene = "wires"
 
-            if self.X < settings.spaceship.X:
-                if self.X + 10 >= settings.spaceship.X:
-                    if self.Y >= settings.spaceship.Y:
-                        if self.Y - 50 <= settings.spaceship.Y:
-                            settings.scene = "cutscene2"
-            
-            if self.X > settings.spaceship.X:
-                if self.X - 10 <= settings.spaceship.X:
-                    if self.Y >= settings.spaceship.Y:
-                        if self.Y - 50 <= settings.spaceship.Y:
-                            settings.scene = "cutscene2" 
+                if self.X < settings.elec.X:
+                    if self.X + 10 >= settings.elec.X and self.Y == settings.elec.Y:
+                        if "screwdriver" in self.INVENTORY:
+                            settings.scene = "wires"
+            if settings.scene == "loc4":
+                if self.X < settings.spaceship.X:
+                    if self.X + 50 >= settings.spaceship.X:
+                        if self.Y >= settings.spaceship.Y:
+                            if self.Y - 50 <= settings.spaceship.Y:
+                                settings.scene = "cutscene2"
+
+                if self.X > settings.spaceship.X:
+                    if self.X - 50 <= settings.spaceship.X:
+                        if self.Y >= settings.spaceship.Y:
+                            if self.Y - 50 <= settings.spaceship.Y:
+                                settings.scene = "cutscene2" 
                 
 
         # if siren.ENEMY_MOVE == True:
@@ -189,7 +195,7 @@ class Player(object.Object):
 
                 if self.CURRENT_LEVEL == 1:
                     settings.scene = "loc2"
-                    enemy.turret.shoot(win, "L", 200, width=80, height=25)
+                    enemy.turret.shoot(win, "L", 200)
                 if self.CURRENT_LEVEL == 2:
                     settings.scene = "loc3"
                 if self.CURRENT_LEVEL == 3:
@@ -197,8 +203,8 @@ class Player(object.Object):
                         settings.scene = "terminal"
                     else:
                         settings.scene = "loc4"
-
-                area.create_area()
+                area.create_area(0,0)
+                        
 
         for door in area.list_door_left:
             if self.RECT.x <= door.RECT.x and self.RECT.y >= door.RECT.y:
@@ -222,19 +228,18 @@ class Player(object.Object):
                 if self.CURRENT_LEVEL == 0:
                     settings.bg1.blit_sprite(win)
                     settings.scene = "loc1"
-                    self.X = 720
-                    self.RECT.x = 720
-                    self.Y = 720
-                    self.RECT.y = 720
-                    enemy.turret.shoot(win, "R", 200, width=80, height=25)
+                    area.create_area(600, 540)
+                    enemy.turret.shoot(win, "R", 200)
                 if self.CURRENT_LEVEL == 1:
                     settings.scene = "loc2"
-                    enemy.turret.shoot(win, "L", 200, width=80, height=25)
+                    enemy.turret.shoot(win, "L", 200)
+                    area.create_area(660, 0)
                 if self.CURRENT_LEVEL == 2:
                     settings.scene = "loc3"
+                    area.create_area(600,120)
                 if self.CURRENT_LEVEL == 3:
-                    settings.password = "loc4"
-                area.create_area()
+                    settings.scene = "loc4"
+                    area.create_area(0,0)
 
     def health_font(self, win):
         self.load_image()

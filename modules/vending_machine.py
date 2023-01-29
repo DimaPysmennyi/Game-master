@@ -11,7 +11,7 @@ mouse_pressed = pygame.mouse.get_pressed()
 
 def vending_machine(win):
     global show_screwdriver
-    if btns.button1.button_pressing() == True:
+    if btns.button5.button_pressing() == True:
         show_screwdriver = False
         player.hero.INVENTORY.append("screwdriver")
         settings.vending_machine_inside.blit_sprite(win)

@@ -43,7 +43,7 @@ list_ladder = []
 
 list_computer = []
 
-def create_area():
+def create_area(additional_hero_x, additional_hero_y):
     x = 0
     y = 0
     for row in map[hero.CURRENT_LEVEL]:
@@ -62,10 +62,10 @@ def create_area():
                 # list_block_rect.append(block.RECT)
 
             if column == "p":
-                hero.RECT.x = x
-                hero.RECT.y = y
-                hero.X = x
-                hero.Y = y
+                hero.RECT.x = x + additional_hero_x
+                hero.RECT.y = y + additional_hero_y
+                hero.X = x + additional_hero_x
+                hero.Y = y + additional_hero_y
                 
                 list_hero.append(hero)
                 
@@ -97,9 +97,9 @@ def create_area():
 
             if column == "t":
                 turret.RECT.x = x
-                turret.RECT.y = y
+                turret.RECT.y = y + 4
                 turret.X = x
-                turret.Y = y
+                turret.Y = y + 4
                 list_turrets.append(turret)
                 # list_turrets_rect.append(turret)
 
@@ -202,4 +202,4 @@ def create_area():
         x = 0
         
 # print(level1)
-create_area()
+create_area(0,0)

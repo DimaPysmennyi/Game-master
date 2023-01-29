@@ -340,3 +340,30 @@ credits = Settings(
     name_img="images\\credits.png",
     color=(0,0,0)
 )
+
+bg3 = Settings(
+    width = 720,
+    height = 720,
+    x = 60,
+    y = 60,
+    name_img = "images\\bg3.png",
+    color = "gray"
+)
+
+bg4 = Settings(
+    width = 840,
+    height = 720,
+    x = 0,
+    y = 60,
+    name_img = "images\\bg4.png",
+    color = "gray"
+)
+
+
+
+sound = True
+
+need_keys = False
+need_vending_machine = False
+
+terminal_input = ""

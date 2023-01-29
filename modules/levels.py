@@ -53,9 +53,9 @@ level2 = [
 level3 = [
     list("bbbbbbbbbbbbbb"),
     list("lp00000000000b"),
-    list("bbbbb00000000b"),
-    list("b000000000000r"),
-    list("bbb0000000bbbb"),
+    list("b000000000000b"),
+    list("bbbbbb0000000r"),
+    list("b000000000bbbb"),
     list("b000000000000b"),
     list("b000000000000b"),
     list("bm00000000000b"),

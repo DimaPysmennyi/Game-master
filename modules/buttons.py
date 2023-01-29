@@ -177,6 +177,15 @@ button0 = Button(
     color = "white"
 )
 
+sound_switch = Button(
+    width=60,
+    height=60,
+    x=720,
+    y=0,
+    name_img="images\sound_off.png",
+    color = "yellow"
+)
+
 button_list.append(button0)
 button_list.append(button1)
 button_list.append(button2)

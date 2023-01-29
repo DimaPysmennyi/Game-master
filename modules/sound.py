@@ -9,7 +9,7 @@ def death():
 
 def bg_music(filename):
     pygame.mixer.music.load('sounds\\' + filename)
-    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.set_volume(0.1)
     pygame.mixer.music.play(-1)
     
     

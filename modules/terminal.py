@@ -19,7 +19,7 @@ bg_terminal = settings.Settings(
     height=840,
     x=0,
     y=0,
-    name_img="images\\buttons\password_panel.png",
+    name_img="images\\terminal.png",
     color=(0,0,0)
 )
 
@@ -38,12 +38,23 @@ def terminal(win):
     global p9
     print(input_list)
 
+    font = pygame.font.SysFont("fonts\Digital_Thin.ttf", 80)
+    text = font.render(settings.terminal_input, 1, (157, 226, 36), None)
 
-
+    if len(input_list) == 1:
+        settings.terminal_input = input_list[0]
+    if len(input_list) == 2:
+        settings.terminal_input = input_list[0] + input_list[1]
+    if len(input_list) == 3:
+        settings.terminal_input = input_list[0] + input_list[1] + input_list[2]
+    if len(input_list) == 4:
+        settings.terminal_input = input_list[0] + input_list[1] + input_list[2] + input_list[3]
 
     bg_terminal.blit_sprite(win)
+
+
     for bt in button_list:
-        bt.draw(win)
+        # bt.draw(win)
         if bt.button_pressing():
             if bt == bt0:
                 if p0 == False:
@@ -86,7 +97,7 @@ def terminal(win):
                     input_list.append("9")
                     p9 = True
 
-    if len(input_list) == 4:
+    if len(input_list) == 4 and bt_approve.button_pressing():
         input_password = input_list[0]+input_list[1]+input_list[2]+input_list[3]
         if input_password == settings.password:
             settings.terminal = True
@@ -105,14 +116,20 @@ def terminal(win):
             p9 = False
 
         input_list.clear()    
-    btns.back_button.blit_sprite(win)
-    if btns.back_button.button_pressing():
-        settings.scene == "loc3"
-        player.hero.CURRENT_LEVEL -= 1
-         
+
+    win.blit(text, (365, 270))
+bt_approve = btns.Button(
+    width=70,
+    height=70,
+    x=475,
+    y=580,
+    name_img="images\wall.png",
+    color=(0,0,0)
+)
+
 bt0 = btns.Button(
-    width=60,
-    height=60,
+    width=70,
+    height=70,
     x=390,
     y=580,
     name_img="images\wall.png",
@@ -120,8 +137,8 @@ bt0 = btns.Button(
 )
 
 bt1 = btns.Button(
-    width=60,
-    height=60,
+    width=70,
+    height=70,
     x=305,
     y=345,
     name_img="images\wall.png",
@@ -129,64 +146,64 @@ bt1 = btns.Button(
 )
 
 bt2 = btns.Button(
-    width=60,
-    height=60,
+    width=70,
+    height=70,
     x=390,
     y=345,
     name_img="images\wall.png",
     color=(0,0,0)
 )
 bt3 = btns.Button(
-    width=60,
-    height=60,
+    width=70,
+    height=70,
     x=475,
     y=345,
     name_img="images\wall.png",
     color=(0,0,0)
 )
 bt4 = btns.Button(
-    width=60,
-    height=60,
+    width=70,
+    height=70,
     x=305,
     y=425,
     name_img="images\wall.png",
     color=(0,0,0)
 )
 bt5 = btns.Button(
-    width=60,
-    height=60,
+    width=70,
+    height=70,
     x=390,
     y=425,
     name_img="images\wall.png",
     color=(0,0,0)
 )
 bt6 = btns.Button(
-    width=60,
-    height=60,
+    width=70,
+    height=70,
     x=475,
     y=425,
     name_img="images\wall.png",
     color=(0,0,0)
 )
 bt7 = btns.Button(
-    width=60,
-    height=60,
+    width=70,
+    height=70,
     x=305,
     y=500,
     name_img="images\wall.png",
     color=(0,0,0)
 )
 bt8 = btns.Button(
-    width=60,
-    height=60,
+    width=70,
+    height=70,
     x=390,
     y=500,
     name_img="images\wall.png",
     color=(0,0,0)
 )
 bt9 = btns.Button(
-    width=60,
-    height=60,
+    width=70,
+    height=70,
     x=475,
     y=500,
     name_img="images\wall.png",

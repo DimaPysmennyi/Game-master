@@ -52,14 +52,14 @@ class Enemy(object.Object):
                 else:
                     self.ENEMY_MOVE = True        
         
-    def shoot(self, win, direction, count_while, width, height):
+    def shoot(self, win, direction, count_while):
         self.COUNT_BULLET += 1
         if self.COUNT_BULLET % count_while == 0 and len(area.list_bullet) < 3:
             #  and len(self.LIST_BULLET) < 1
             if direction== "L":
                 bullet1 = Bullet(
                     x = self.X,
-                    y = self.Y + height//2,
+                    y = self.Y + self.HEIGHT//4,
                     width= 20,
                     height= 10,
                     name_img= "images\enemies\\bullet.png",
@@ -68,7 +68,7 @@ class Enemy(object.Object):
             if direction == "R":
                 bullet1 = Bullet(
                     x = self.X + self.WIDTH,
-                    y = self.Y + height//2,
+                    y = self.Y + self.HEIGHT//4,
                     width= 20,
                     height= 10,
                     name_img= "images\enemies\\bullet.png",
