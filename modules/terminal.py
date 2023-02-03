@@ -36,9 +36,9 @@ def terminal(win):
     global p7
     global p8
     global p9
-    print(input_list)
+    # print(input_list)
 
-    font = pygame.font.SysFont("fonts\Digital_Thin.ttf", 80)
+    font = pygame.font.Font("fonts\PixelFont.ttf", 40)
     text = font.render(settings.terminal_input, 1, (157, 226, 36), None)
 
     if len(input_list) == 1:
@@ -52,50 +52,50 @@ def terminal(win):
 
     bg_terminal.blit_sprite(win)
 
-
-    for bt in button_list:
-        # bt.draw(win)
-        if bt.button_pressing():
-            if bt == bt0:
-                if p0 == False:
-                    input_list.append("0")
-                    p0 = True
-            if bt == bt1:
-                if p1 == False:
-                    input_list.append("1")
-                    p1 = True
-            if bt == bt2:
-                if p2 == False:
-                    input_list.append("2")
-                    p2 = True
-            if bt == bt3:
-                if p3 == False:
-                    input_list.append("3")
-                    p3 = True
-            if bt == bt4:
-                if p4 == False:
-                    input_list.append("4")
-                    p4 = True
-            if bt == bt5:
-                if p5 == False:
-                    input_list.append("5")
-                    p5 = True
-            if bt == bt6:
-                if p6 == False:
-                    input_list.append("6")
-                    p6 = True
-            if bt == bt7:
-                if p7 == False:
-                    input_list.append("7")
-                    p7 = True
-            if bt == bt8:
-                if p8 == False:
-                    input_list.append("8")
-                    p8 = True
-            if bt == bt9:
-                if p9 == False:
-                    input_list.append("9")
-                    p9 = True
+    if len(input_list) < 5:
+        for bt in button_list:
+            # bt.draw(win)
+            if bt.button_pressing():
+                if bt == bt0:
+                    if p0 == False:
+                        input_list.append("0")
+                        p0 = True
+                if bt == bt1:
+                    if p1 == False:
+                        input_list.append("1")
+                        p1 = True
+                if bt == bt2:
+                    if p2 == False:
+                        input_list.append("2")
+                        p2 = True
+                if bt == bt3:
+                    if p3 == False:
+                        input_list.append("3")
+                        p3 = True
+                if bt == bt4:
+                    if p4 == False:
+                        input_list.append("4")
+                        p4 = True
+                if bt == bt5:
+                    if p5 == False:
+                        input_list.append("5")
+                        p5 = True
+                if bt == bt6:
+                    if p6 == False:
+                        input_list.append("6")
+                        p6 = True
+                if bt == bt7:
+                    if p7 == False:
+                        input_list.append("7")
+                        p7 = True
+                if bt == bt8:
+                    if p8 == False:
+                        input_list.append("8")
+                        p8 = True
+                if bt == bt9:
+                    if p9 == False:
+                        input_list.append("9")
+                        p9 = True
 
     if len(input_list) == 4 and bt_approve.button_pressing():
         input_password = input_list[0]+input_list[1]+input_list[2]+input_list[3]
@@ -117,7 +117,7 @@ def terminal(win):
 
         input_list.clear()    
 
-    win.blit(text, (365, 270))
+    win.blit(text, (345, 270))
 bt_approve = btns.Button(
     width=70,
     height=70,

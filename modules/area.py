@@ -18,8 +18,12 @@ block_height = 60
 list_door_right = []
 list_door_left = []
 
+list_balloon = []
+
 list_turrets = []
 list_bullet = []
+
+list_medkit = []
 
 list_hero = []
 list_npc = []
@@ -34,6 +38,8 @@ list_bed.append(settings.bed)
 list_vending_machine = []
 
 list_siren = []
+
+list_shkaf = []
 
 list_trapdoor = []
 
@@ -118,6 +124,14 @@ def create_area(additional_hero_x, additional_hero_y):
                 illya.RECT.y = y + 4
 
                 list_npc.append(illya)
+
+            if column == "#":
+                settings.medkit.X = x
+                settings.medkit.RECT.x = x
+                settings.medkit.Y = y + 4
+                settings.medkit.RECT.y = y + 4
+
+                list_medkit.append(settings.medkit)
             
             if column == "2":
                 security_guy.X = x
@@ -197,6 +211,36 @@ def create_area(additional_hero_x, additional_hero_y):
                 settings.computer.RECT.y = y + 4
 
                 list_computer.append(settings.computer)
+            if column == "3":
+                balloon = Area(
+                    width = 120,
+                    height = 60,
+                    x = x,
+                    y = y,
+                    name_img = "images\\balloon.png",
+                    color = "red"
+                )
+            if column == "4":
+                shkaf = Area(
+                    width = 60,
+                    height = 120,
+                    x = x,
+                    y = y,
+                    name_img = "images\\shkaf.png",
+                    color = "red")
+                list_shkaf.append(shkaf)
+            if column == "g":
+                black_crate = Area(
+                    width = 60,
+                    height = 60,
+                    x = x,
+                    y = y,
+                    name_img = "images\\black_crate.png",
+                    color = "red"
+                )                
+
+                list_block_area.append(black_crate)
+                
             x += block_width
         y += block_height
         x = 0

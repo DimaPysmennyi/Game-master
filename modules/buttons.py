@@ -1,4 +1,5 @@
 import modules.settings as settings
+import modules.sound as sound
 import pygame
 
 class Button(settings.Settings):

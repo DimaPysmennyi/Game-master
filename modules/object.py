@@ -16,6 +16,11 @@ class Object(settings.Settings):
         self.CURRENT_LEVEL = 0
         self.CURRENT_MAP = 0
 
+        self.MOVE_DOWN = False
+        self.MOVE_RIGHT = False
+        self.MOVE_LEFT = False
+        self.MOVE_DOWN = False
+
     def col_right(self, list_walls):
        for wall in list_walls:
            if self.Y <= wall.Y + wall.HEIGHT and self.Y + self.HEIGHT >= wall.Y:

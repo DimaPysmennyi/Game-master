@@ -1,11 +1,9 @@
 import pygame
 
-def death():
-	death = pygame.mixer.Sound('sounds\death.mp3')
-	death.set_volume(0.1)
-	death.play()
-
-
+def sound(filename, a):
+	sound1 = pygame.mixer.Sound('sounds\\' + filename)
+	sound1.set_volume(a)
+	sound1.play()
 
 def bg_music(filename):
     pygame.mixer.music.load('sounds\\' + filename)
@@ -15,3 +13,5 @@ def bg_music(filename):
     
 def music_stop():
     pygame.mixer.music.stop()
+
+sound_repeat = 0

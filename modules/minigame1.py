@@ -49,10 +49,10 @@ def minigame1(win):
                 left_pressed = False
 
     if left_correct == True and right_correct == True:
-        font = pygame.font.SysFont("fonts\Digital_Thin.ttf", 100)
+        font = pygame.font.Font("fonts\PixelFont.ttf", 80)
         settings.password1.blit_sprite(win)        
         text = font.render(str(settings.password), 1, (0,0,0), None)
-        win.blit(text, (200, 300))
+        win.blit(text, (200, 350))
 
 left_8 = btns.Button(
     width=100,

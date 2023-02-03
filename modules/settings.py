@@ -175,7 +175,7 @@ bed = Settings(
     width = 100,
     height = 80,
     x = 60,
-    y = 175,
+    y = 165,
     name_img = "images\\bed.png",
     color = "black"
 )
@@ -225,6 +225,17 @@ keys = Settings(
     color = (0, 0, 0)
 )
 
+medkit = Settings(
+    
+    width = 60,
+    height = 60,
+    x = 0,
+    y = 0,
+    name_img="images\medkit.png",
+    color = (0, 0, 0)
+
+)
+
 screwdriver = Settings(
     width = 100,
     height= 150,
@@ -235,11 +246,11 @@ screwdriver = Settings(
 )
 
 computer = Settings(
-    width = 60,
+    width = 100,
     height = 60,
     x = 0,
     y = 0,
-    name_img="images\pc.png",
+    name_img="images\computer.png",
     color=(255,255,255)
 )
            
@@ -247,7 +258,7 @@ password1 = Settings(
     width=500,
     height=200,
     x=150,
-    y = 220,
+    y = 320,
     name_img="images\\password1.png",
     color = "red"
 )
@@ -359,6 +370,14 @@ bg4 = Settings(
     color = "gray"
 )
 
+medkit = Settings(
+    width = 60,
+    height = 60,
+    x = 0,
+    y = 0,
+    name_img = "images\\medkit.png",
+    color = "red"
+)
 
 
 sound = True

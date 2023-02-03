@@ -12,6 +12,7 @@ y = laser
 1 = ladder
 2 = security guy
 v = vending machine
+# = medkit
 '''
 level1 = [
     list("bbbbbbbbbbbbbb"),
@@ -36,15 +37,15 @@ level2 = [
     list("bbbbbbbbbbbbbb"),
     list("b000000000000b"),
     list("b000000000000b"),
-    list("b0c0000000000b"),
-    list("bicc0100000s0b"),
+    list("b0g0000000000b"),
+    list("bigg0100000s0b"),
     list("bbbbb1bbbbbb1b"),
     list("b0000100000b1b"),
     list("b0000100000b1b"),
     list("b001010000tb1b"),
     list("bbb1bbbbbbbb1b"),
     list("b0010000c0001b"),
-    list("b0010000cc001b"),
+    list("b0010#00cc001b"),
     list("lp01000ccc001r"),
     list("bbbbbbbbbbbbbb")
 ]
@@ -52,23 +53,24 @@ level2 = [
 
 level3 = [
     list("bbbbbbbbbbbbbb"),
-    list("lp00000000000b"),
+    list("lp00000000030b"),
     list("b000000000000b"),
-    list("bbbbbb0000000r"),
-    list("b000000000bbbb"),
-    list("b000000000000b"),
-    list("b000000000000b"),
-    list("bm00000000000b"),
-    list("bbbb000000000b"),
-    list("b000000000000b"),
-    list("b00000000000vb"),
-    list("b0000000000bbb"),
-    list("b000000000002b"),
+    list("bbbbbbbbb1000r"),
+    list("b000000001bbbb"),
+    list("bg00000001000b"),
+    list("bgg0000001000b"),
+    list("bggg000001000b"),
+    list("bbbbbbbb01bbbb"),
+    list("b000000001044b"),
+    list("bv00200001000b"),
+    list("bbbbbbbbb10bbb"),
+    list("bm0000000100gb"),
     list("bbbbbbbbbbbbbb")
 ]
 
 #TODO
-#coridor pz pz relizni
+#отдіхай
+
 #релизни корридор пж а то абсурд и отвертка тожеда 
 level4 = [
     list("bbbbbbbbbbbbbb"),
@@ -77,11 +79,11 @@ level4 = [
     list("b000000000000b"),
     list("b000000000000b"),
     list("b000000000000b"),
+    list("b003000000300b"),
     list("b000000000000b"),
+    list("b003000000000b"),
     list("b000000000000b"),
-    list("b000000000000b"),
-    list("b000000000000b"),
-    list("b000000000000b"),
+    list("b003000000300b"),
     list("b000000000000b"),
     list("lp00000000000b"),
     list("bbbbbbbbbbbbbb")

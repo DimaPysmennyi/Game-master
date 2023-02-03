@@ -1,6 +1,7 @@
 import modules.settings as settings
 import modules.object as object
 import modules.npc as npc
+import modules.sound as sound
 # import modules.enemy as enemy
 
 import pygame
@@ -10,10 +11,6 @@ class Player(object.Object):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.HEALTH = 5
-        self.MOVE_DOWN = False
-        self.MOVE_RIGHT = False
-        self.MOVE_LEFT = False
-        self.MOVE_DOWN = False
         self.GRAVITY = False
         self.INVENTORY = []
 
@@ -29,12 +26,18 @@ class Player(object.Object):
 
         self.col_up(area)
 
+
+
         if event[pygame.K_d]:
             self.col_right(area)
             self.DIRECTION = "R"
             if self.MOVE_RIGHT == True:
                 self.X += 5
                 self.RECT.x += 5
+
+            if sound.sound_repeat % 20 == 0:
+                if self.MOVE_DOWN == False:
+                    sound.sound("walk.wav", 0.1)
             self.direction()
             self.animation("Player", 1, 4)
 
@@ -45,6 +48,10 @@ class Player(object.Object):
             if self.MOVE_LEFT == True:
                 self.X -= 5
                 self.RECT.x -= 5
+            
+            if sound.sound_repeat % 20 == 0:
+                if self.MOVE_DOWN == False:
+                    sound.sound("walk.wav", 0.1)
             self.direction()
             self.animation("Player", 1, 4)
 
@@ -56,13 +63,18 @@ class Player(object.Object):
         if event[pygame.K_e]:   
             if settings.scene == "loc1":
                 if self.X + 10 >= settings.lever.X and self.Y == settings.lever.Y:
+                    settings.lever.NAME_IMG = "images\lever.png"
+                    settings.lever.load_image()
                     if settings.trapdoor_pressed == False:
                         settings.trapdoor_pressed = True
 
                 if self.X + 10 >= settings.lever2.X and self.Y == settings.lever2.Y:
+                    settings.lever2.NAME_IMG = "images\lever.png"
+                    settings.lever2.load_image()
                     if settings.laser_pressed == False:
                         settings.laser_pressed = True
-        
+            
+
             
             if settings.scene == "loc2":
                 if settings.need_keys == True:
@@ -74,6 +86,15 @@ class Player(object.Object):
                         if self.X - 50 <= settings.keys.X and self.Y - 20 <= settings.keys.Y:
                             if not "keys" in self.INVENTORY:
                                 self.INVENTORY.append("keys")
+
+                if self.X < settings.medkit.X and self.Y >= settings.medkit.Y:
+                    if self.X + 50 >= settings.medkit.X and self.Y - 20 <= settings.medkit.Y:
+                        self.HEALTH = 5
+                        sound.sound('health.wav', 0.1)
+                if self.X > settings.medkit.X and self.Y >= settings.medkit.Y:        
+                    if self.X - 50 <= settings.medkit.X and self.Y - 20 <= settings.medkit.Y:
+                        self.HEALTH = 5
+                        sound.sound('health.wav', 0.1)
             
             if settings.scene == "loc3":
                 if self.X < settings.computer.X:
@@ -190,6 +211,8 @@ class Player(object.Object):
                 area.list_siren.clear()
                 area.list_vending_machine.clear()
                 area.list_computer.clear()
+                area.list_balloon.clear()
+                area.list_medkit.clear()
                 
                 self.CURRENT_LEVEL += 1 
 
@@ -222,6 +245,9 @@ class Player(object.Object):
                 area.list_siren.clear()
                 area.list_vending_machine.clear()
                 area.list_computer.clear()
+                area.list_balloon.clear()
+                area.list_shkaf.clear()
+                area.list_medkit.clear()
                 
                 self.CURRENT_LEVEL -= 1
 
@@ -252,9 +278,9 @@ class Player(object.Object):
             color = "yellow"
         )
         bg_health.blit_sprite(win)
-        font = pygame.font.SysFont('fonts\\PixelFont.ttf', 100)
+        font = pygame.font.Font('fonts\\PixelFont.ttf', 70)
         text = font.render(str(self.HEALTH), 1, (225,22,25), None)
-        win.blit(text, (70, 10))
+        win.blit(text, (70, 0))
         heart_sprite = settings.Settings(
             width = 60,
             height = 60, 
